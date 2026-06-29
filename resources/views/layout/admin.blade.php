@@ -900,6 +900,89 @@ margin-top:25px;
 }
 
 /*End customer page */
+
+/*Start customer detail page */
+
+.customer-details{
+
+width:90%;
+margin:40px auto;
+
+}
+
+.customer-card,
+.summary,
+.orders-list{
+
+background:#fff;
+padding:25px;
+margin-bottom:25px;
+border-radius:10px;
+box-shadow:0 3px 15px rgba(0,0,0,.08);
+
+}
+
+.customer-card table{
+
+width:100%;
+
+}
+
+.customer-card th{
+
+width:180px;
+text-align:left;
+padding:10px;
+
+}
+
+.customer-card td{
+
+padding:10px;
+
+}
+
+.orders-list table{
+
+width:100%;
+border-collapse:collapse;
+
+}
+
+.orders-list th{
+
+background:#333;
+color:white;
+padding:12px;
+
+}
+
+.orders-list td{
+
+padding:12px;
+border-bottom:1px solid #eee;
+
+}
+
+.orders-list tr:hover{
+
+background:#f8f8f8;
+
+}
+
+.back-btn{
+
+display:inline-block;
+padding:10px 20px;
+background:#0d6efd;
+color:white;
+text-decoration:none;
+border-radius:6px;
+
+}
+
+/*End customer detail page */
+
 </style>
 
 </head>

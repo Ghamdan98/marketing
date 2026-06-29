@@ -45,6 +45,7 @@ Route::get('/order', [OrderController::class,'display_order'])->name('order.inde
 
 // customers
 Route::get('/customer', [Controller::class, 'customer_desplay'])->name('customer.index');
+Route::get('/admin/show{customer}',[Controller::class, 'show_customer'])->name('customer.show');
 // middleware
 
 Route::middleware('admin')->group(function () {

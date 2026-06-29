@@ -35,4 +35,9 @@ class Controller extends BaseController
         return view('admin.customers.index' , compact('customers'));
     }
 
+    public function show_customer(User $customer){
+        $customer->load('order');
+        $customer->loadCount('order')->loadSum('order' , 'total_price');
+        return view('admin.customers.show',compact('customer'));
+    }
 }

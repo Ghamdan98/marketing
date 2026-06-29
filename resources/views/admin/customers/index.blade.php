@@ -73,7 +73,7 @@
 
                     <a
                         href="
-                        {{-- {{ route('customer.show',$customer->id) }} --}}
+                        {{ route('customer.show',$customer->id) }}
                          "
                         class="btn-view">
 
