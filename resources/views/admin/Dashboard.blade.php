@@ -62,9 +62,19 @@
 
         <div class="chart">
 
-            <h2>Sales Analytics</h2>
+            <h3>Monthly Sales</h3>
 
-            <div class="chart-box"></div>
+            <canvas id="salesChart"></canvas>
+
+        </div>
+
+        <div class="chart">
+
+            <h2>Top Selling Products</h2>
+
+            {{-- <div class="chart-box"> --}}
+            <canvas id="productsChart"></canvas>
+            {{-- </div> --}}
 
         </div>
 
@@ -158,4 +168,64 @@
         </table>
 
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    @stack('scripts')
+    
+    <script>
+        /* chart seles total Monthly */
+        const months = @json($sales_chart->pluck('month'));
+
+        const totals = @json($sales_chart->pluck('total_sales'));
+
+        new Chart(document.getElementById('salesChart'), {
+
+            type: 'line',
+
+            data: {
+
+                labels: months,
+
+                datasets: [{
+
+                    label: 'Monthly Sales',
+
+                    data: totals,
+
+                    borderWidth: 3,
+
+                    tension: .4,
+
+                    fill: false
+
+                }]
+
+            }
+
+        });
+
+        /* chart product seles */
+        const productNames = @json($sele_product->pluck('name'));
+        const quantities = @json($sele_product->pluck('total_sold'));
+        new Chart(document.getElementById('productsChart'), {
+
+            type: 'bar',
+
+            data: {
+
+                labels: productNames,
+
+                datasets: [{
+                    label: 'Sold',
+                    data: quantities,
+                    borderWidth: 1,
+                    backgroundColor: '#3B82F6', // لون الأعمدة
+                    borderColor: '#1D4ED8',
+                }]
+
+            }
+
+        });
+    </script>
+    
 @endsection

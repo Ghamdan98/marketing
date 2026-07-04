@@ -21,23 +21,34 @@ class Controller extends BaseController
         $orders = order::count();
         $products = product::count();
         $seles = order::sum('total_price');
+        $sales_chart = DB::table('orders')
+            ->selectRaw('MONTH(created_at) as month')
+            ->selectRaw('SUM(total_price) as total_sales')
+            ->groupByRaw('MONTH(created_at)')
+            ->orderByRaw('MONTH(created_at)')
+            ->get();
         $sele_product = DB::table('order_items')->join('products', 'order_items.product_id', '=', 'products.id')
-        ->select('products.id', 'products.name', DB::raw('SUM(order_items.quantity) as total_sold'))
-        ->groupBy('products.id', 'products.name')
-        ->orderByDesc('total_sold')
-        ->limit(10)->get();
+            ->select('products.id', 'products.name', DB::raw('SUM(order_items.quantity) as total_sold'))
+            ->groupBy('products.id', 'products.name')
+            ->orderByDesc('total_sold')
+            ->limit(10)->get();
         $order_list = order::with('user')->limit(10)->get();
-        return view('admin.Dashboard', compact('users', 'orders', 'products', 'seles', 'sele_product' , 'order_list'));
+        return view(
+            'admin.Dashboard',
+            compact('users', 'orders', 'products', 'seles', 'sele_product', 'order_list', 'sales_chart')
+        );
     }
 
-    public function customer_desplay(){
+    public function customer_desplay()
+    {
         $customers = User::withcount('order')->withSum(['order as total_order_price'], 'total_price')->where('role', 'customer')->get();
-        return view('admin.customers.index' , compact('customers'));
+        return view('admin.customers.index', compact('customers'));
     }
 
-    public function show_customer(User $customer){
+    public function show_customer(User $customer)
+    {
         $customer->load('order');
-        $customer->loadCount('order')->loadSum('order' , 'total_price');
-        return view('admin.customers.show',compact('customer'));
+        $customer->loadCount('order')->loadSum('order', 'total_price');
+        return view('admin.customers.show', compact('customer'));
     }
 }
