@@ -1,0 +1,73 @@
+
+.contact-section {
+    padding: 40px 8% 80px;
+}
+
+.contact-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+    align-items: center;
+}
+
+/* Contact Info */
+
+.contact-info {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.contact-info h2 {
+    margin-bottom: 25px;
+    color: #0f172a;
+}
+
+.info-box {
+    margin-bottom: 25px;
+}
+
+.info-box h4 {
+    color: #0ea5e9;
+    margin-bottom: 8px;
+}
+
+.info-box p {
+    color: #555;
+    line-height: 1.7;
+}
+
+/* Form */
+
+.contact-form {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.contact-form h2 {
+    margin-bottom: 25px;
+    color: #0f172a;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group input,
+.input-group textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+}
+
+.input-group textarea {
+    resize: none;
+    height: 150px;
+}
+

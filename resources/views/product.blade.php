@@ -13,7 +13,7 @@
 
             </div>
         </form>
-    </section>
+    </section>  
 
     <!-- Categories -->
 

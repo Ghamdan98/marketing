@@ -1,0 +1,139 @@
+
+.products {
+    padding: 50px 8%;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 38px;
+    margin-bottom: 50px;
+    color: #0f172a;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 25px;
+}
+
+.no-products {
+    width: 100%;
+
+    height: 80vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+}
+
+/* مهم جداً */
+
+.empty-img {
+    width: 200px !important;
+
+    max-width: 200px !important;
+
+    height: auto !important;
+
+    display: block;
+}
+
+.no-products h2 {
+    font-size: 40px;
+
+    margin-top: 20px;
+
+    color: #111;
+}
+
+.no-products p {
+    font-size: 18px;
+
+    color: #666;
+
+    margin: 15px 0;
+}
+
+.no-products a {
+    background: black;
+
+    color: white;
+
+    padding: 12px 24px;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+}
+
+.product-form-container {
+    width: 700px;
+
+    margin: 40px auto;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.product-form-container h1 {
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 8px;
+
+    font-size: 16px;
+}
+
+.form-group textarea {
+    height: 120px;
+
+    resize: none;
+}
+
+.product-image {
+    width: 150px;
+
+    height: 150px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+}

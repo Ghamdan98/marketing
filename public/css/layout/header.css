@@ -1,0 +1,44 @@
+.header {
+    padding: 70px 8%;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 50px;
+    color: #0f172a;
+    margin-bottom: 15px;
+}
+
+.header p {
+    color: #666;
+    font-size: 18px;
+}
+
+/* order header */
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.order-header h1 {
+    font-size: 32px;
+}
+
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 35px;
+    }
+
+    nav {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
