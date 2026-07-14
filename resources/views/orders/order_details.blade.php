@@ -4,76 +4,249 @@
 
 @section('content')
 
-    <div class="order-page">
+<section class="section">
 
-        <div class="order-header">
+    <div class="container">
 
-            <h1>Order #{{ $order->id }}</h1>
+        {{-- Header --}}
 
-            <span class="status">
-                {{ $order->status }}
-            </span>
+        <div class="section-header">
+
+            <div>
+
+                <h1 class="section-title">
+
+                    Order #{{ str_pad($order->id, 6, '0', STR_PAD_LEFT) }}
+
+                </h1>
+
+                <p class="section-subtitle">
+
+                    View all details about your order.
+
+                </p>
+
+            </div>
+
+            @switch($order->status)
+
+                @case('pending')
+
+                    <span class="badge badge-warning">
+
+                        Pending
+
+                    </span>
+
+                @break
+
+                @case('completed')
+
+                    <span class="badge badge-success">
+
+                        Completed
+
+                    </span>
+
+                @break
+
+                @case('cancelled')
+
+                    <span class="badge badge-danger">
+
+                        Cancelled
+
+                    </span>
+
+                @break
+
+                @default
+
+                    <span class="badge">
+
+                        {{ ucfirst($order->status) }}
+
+                    </span>
+
+            @endswitch
 
         </div>
 
-        <div class="order-info">
+        {{-- Order Information --}}
 
-            <div class="info-card">
-                <h3>Shipping Address</h3>
+        <div class="order-info-grid">
 
-                <p>{{ $order->city }}</p>
+            <div class="card">
 
-                <p>{{ $order->address_order }}</p>
+                <div class="card-body">
 
-                <p>{{ $order->phone }}</p>
-            </div>
+                    <h3 class="card-title">
 
-            <div class="info-card">
-                <h3>Order Information</h3>
+                        Shipping Address
 
-                <p>Date:
-                    {{ $order->created_at->format('Y-m-d') }}
-                </p>
+                    </h3>
 
-                <p>Total:
-                    ${{ $order->total_price }}
-                </p>
-            </div>
+                    <p>
 
-        </div>
+                        <strong>City:</strong>
 
-        <div class="products-card">
+                        {{ $order->city }}
 
-            <h2>Products</h2>
+                    </p>
 
-            @foreach ($order->order_item as $item)
-                <div class="product-row">
+                    <p>
 
-                    <img src="{{ asset('storage/' . $item->product->image) }}" alt="">
+                        <strong>Address:</strong>
 
-                    <div>
+                        {{ $order->address_order }}
 
-                        <h3>
-                            {{ $item->product->name }}
-                        </h3>
+                    </p>
 
-                        <p>
-                            Quantity:
-                            {{ $item->quantity }}
-                        </p>
+                    <p>
 
-                        <p>
-                            Price:
-                            ${{ $item->price }}
-                        </p>
+                        <strong>Phone:</strong>
 
-                    </div>
+                        {{ $order->phone }}
+
+                    </p>
 
                 </div>
-            @endforeach
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-body">
+
+                    <h3 class="card-title">
+
+                        Order Summary
+
+                    </h3>
+
+                    <p>
+
+                        <strong>Date:</strong>
+
+                        {{ $order->created_at->format('d M Y') }}
+
+                    </p>
+
+                    <p>
+
+                        <strong>Items:</strong>
+
+                        {{ $order->order_item->count() }}
+
+                    </p>
+
+                    <p>
+
+                        <strong>Total:</strong>
+
+                        ${{ number_format($order->total_price,2) }}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {{-- Products --}}
+
+        <div class="card mt-5">
+
+            <div class="card-body">
+
+                <h2 class="card-title">
+
+                    Ordered Products
+
+                </h2>
+
+                <div class="table-responsive">
+
+                    <table class="table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Product</th>
+
+                                <th>Name</th>
+
+                                <th>Price</th>
+
+                                <th>Qty</th>
+
+                                <th>Total</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @foreach($order->order_item as $item)
+
+                                <tr>
+
+                                    <td width="90">
+
+                                        <img
+                                            src="{{ asset('storage/'.$item->product->image) }}"
+                                            class="table-product-image"
+                                            alt="{{ $item->product->name }}">
+
+                                    </td>
+
+                                    <td>
+
+                                        {{ $item->product->name }}
+
+                                    </td>
+
+                                    <td>
+
+                                        ${{ number_format($item->price,2) }}
+
+                                    </td>
+
+                                    <td>
+
+                                        {{ $item->quantity }}
+
+                                    </td>
+
+                                    <td>
+
+                                        <strong>
+
+                                            ${{ number_format($item->price * $item->quantity,2) }}
+
+                                        </strong>
+
+                                    </td>
+
+                                </tr>
+
+                            @endforeach
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
 
         </div>
 
     </div>
+
+</section>
 
 @endsection

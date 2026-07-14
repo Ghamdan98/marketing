@@ -1,124 +1,245 @@
 @extends('layout.master')
-@section('title', 'Card')
+
+@section('title', 'Shopping Cart')
+
 @section('content')
-    <section class="cart-section">
 
-        <h1 class="cart-title">
-            Shopping Cart
-        </h1>
-        @if ($card)
-            <div class="cart-container">
+<section class="section">
 
-                <!-- Cart Items -->
+    <div class="container">
+
+        {{-- Page Header --}}
+
+        <div class="section-header">
+
+            <div>
+
+                <h1 class="section-title">
+
+                    Shopping Cart
+
+                </h1>
+
+                <p class="section-subtitle">
+
+                    Review your selected products before checkout.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        @if($card && $card->card_item->count())
+
+            <div class="cart-layout">
+
+                {{-- Cart Items --}}
 
                 <div class="cart-items">
 
-                    <!-- Item 1 -->
-                    @foreach ($card->card_item as $c)
-                        <div class="cart-item">
-                            <img src="{{ asset('storage/' . $c->product->image) }}" alt="">
-                            <div class="item-details">
-                                <h3>{{ $c->product->name }}</h3>
-                                {{-- {{ $total+= $c->quantity * $c->price }} --}}
-                                <div class="price">${{ $c->quantity * $c->product->sele_price }}</div>
+                    @foreach($card->card_item as $item)
 
-                                <div class="quantity">
-                                    <form action="{{ route('decrease_item', $c->id) }}" method="POST">
+                        <div class="card cart-item">
+
+                            <div class="cart-image">
+
+                                <img
+                                    src="{{ asset('storage/'.$item->product->image) }}"
+                                    class="card-image"
+                                    alt="{{ $item->product->name }}">
+
+                            </div>
+
+                            <div class="cart-content">
+
+                                <h3>
+
+                                    {{ $item->product->name }}
+
+                                </h3>
+
+                                <p class="card-price">
+
+                                    ${{ number_format($item->product->sele_price,2) }}
+
+                                </p>
+
+                                <div class="quantity-box">
+
+                                    <form action="{{ route('decrease_item',$item->id) }}" method="POST">
+
                                         @csrf
                                         @method('PATCH')
-                                        <BUTton type="submit">-</BUTton>
-                                    </form>
-                                    <span>{{ $c->quantity }}</span>
-                                    <form action="{{ route('increment_item', $c->id) }}" method="POST">
 
-                                        @csrf
-                                        @method('PATCH')
+                                        <button class="btn btn-outline btn-sm">
 
-                                        <button type="submit">
-                                            +
+                                            -
+
                                         </button>
 
                                     </form>
+
+                                    <span>
+
+                                        {{ $item->quantity }}
+
+                                    </span>
+
+                                    <form action="{{ route('increment_item',$item->id) }}" method="POST">
+
+                                        @csrf
+                                        @method('PATCH')
+
+                                        <button class="btn btn-outline btn-sm">
+
+                                            +
+
+                                        </button>
+
+                                    </form>
+
                                 </div>
 
                             </div>
-                            <form action="{{ route('delete_item', $c->id) }}" method="post">
-                                @csrf
-                                @method('delete')
-                                <button class="remove">
-                                    Remove
-                                </button>
-                            </form>
+
+                            <div class="cart-actions">
+
+                                <div class="item-total">
+
+                                    ${{ number_format($item->quantity * $item->product->sele_price,2) }}
+
+                                </div>
+
+                                <form action="{{ route('delete_item',$item->id) }}" method="POST">
+
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button class="btn btn-danger btn-sm">
+
+                                        Remove
+
+                                    </button>
+
+                                </form>
+
+                            </div>
+
                         </div>
+
                     @endforeach
-                    <!-- Item 2 -->
-                    <h3>No Item</h3>
+
                 </div>
 
-                <!-- Summary -->
 
-                <div class="summary">
+                {{-- Summary --}}
 
-                    <h2>Order Summary</h2>
+                <div class="card summary-card">
 
-                    <div class="summary-item">
+                    <div class="card-body">
 
-                        <span>Subtotal</span>
+                        <h2>
 
-                        <span>${{ $total }}</span>
+                            Order Summary
 
-                    </div>
+                        </h2>
 
-                    <div class="summary-item">
+                        <div class="summary-row">
 
-                        <span>Shipping</span>
+                            <span>Subtotal</span>
 
-                        <span>${{ $total * 0.002 }}</span>
+                            <span>${{ number_format($total,2) }}</span>
 
-                    </div>
+                        </div>
 
-                    <div class="summary-item">
+                        <div class="summary-row">
 
-                        <span>Tax</span>
+                            <span>Shipping</span>
 
-                        <span>${{ $total * 0.15 }}</span>
+                            <span>${{ number_format($total*0.002,2) }}</span>
 
-                    </div>
+                        </div>
 
-                    <div class="summary-item total">
+                        <div class="summary-row">
 
-                        <span>Total</span>
+                            <span>Tax</span>
 
-                        <span>${{ $total + $total * 0.15 }}</span>
+                            <span>${{ number_format($total*0.15,2) }}</span>
 
-                    </div>
+                        </div>
 
-                    <!-- Coupon -->
+                        <div class="summary-total">
 
-                    <div class="coupon">
+                            <span>Total</span>
 
-                        <input type="text" placeholder="Coupon Code">
+                            <span>
 
-                        <button>
+                                ${{ number_format($total+$total*0.15,2) }}
+
+                            </span>
+
+                        </div>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Coupon Code">
+
+                        <button class="btn btn-outline btn-block">
+
                             Apply Coupon
+
                         </button>
 
-                    </div>
-
-                    <!-- Checkout -->
-
-                    <a href="{{ route('checkout') }}">
-                        <button class="checkout-btn">
+                        <a
+                            href="{{ route('checkout') }}"
+                            class="btn btn-primary btn-block">
 
                             Proceed To Checkout
 
-                        </button>
-                    </a>
+                        </a>
+
+                    </div>
 
                 </div>
 
             </div>
+
+        @else
+
+            <div class="empty-state">
+
+                <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png" alt="">
+
+                <h2>
+
+                    Your Cart Is Empty
+
+                </h2>
+
+                <p>
+
+                    Looks like you haven't added any products yet.
+
+                </p>
+
+                <a
+                    href="{{ route('shop.product') }}"
+                    class="btn btn-primary">
+
+                    Continue Shopping
+
+                </a>
+
+            </div>
+
+            
         @endif
 
-    </section>
+    </div>
+
+</section>
+
 @endsection

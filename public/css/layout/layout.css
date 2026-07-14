@@ -1,0 +1,246 @@
+/* ==========================================
+   Container
+========================================== */
+
+.container{
+
+    width:min(var(--container), calc(100% - 2rem));
+
+    margin-inline:auto;
+
+}
+
+
+/* ==========================================
+   Sections
+========================================== */
+
+.section{
+
+    padding:80px 0;
+
+}
+
+.section-sm{
+
+    padding:50px 0;
+
+}
+
+.section-lg{
+
+    padding:120px 0;
+
+}
+
+
+/* ==========================================
+   Section Header
+========================================== */
+
+.section-header{
+
+    margin-bottom:40px;
+
+}
+
+.section-title{
+
+    font-size:var(--text-2xl);
+
+    font-weight:700;
+
+    color:var(--text);
+
+    margin-bottom:10px;
+
+}
+
+.section-description{
+
+    color:var(--text-light);
+
+    max-width:700px;
+
+}
+
+
+/* ==========================================
+   Flex
+========================================== */
+
+.flex{
+
+    display:flex;
+
+}
+
+.flex-center{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+.flex-between{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+}
+
+.flex-column{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+
+/* ==========================================
+   Grid
+========================================== */
+
+.grid{
+
+    display:grid;
+
+    gap:24px;
+
+}
+
+.grid-2{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:24px;
+
+}
+
+.grid-3{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:24px;
+
+}
+
+.grid-4{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:24px;
+
+}
+
+
+/* ==========================================
+   Alignment
+========================================== */
+
+.text-center{
+
+    text-align:center;
+
+}
+
+.text-right{
+
+    text-align:right;
+
+}
+
+
+/* ==========================================
+   Margin
+========================================== */
+
+.mt-1{
+
+    margin-top:var(--space-sm);
+
+}
+
+.mt-2{
+
+    margin-top:var(--space-md);
+
+}
+
+.mt-3{
+
+    margin-top:var(--space-lg);
+
+}
+
+.mb-1{
+
+    margin-bottom:var(--space-sm);
+
+}
+
+.mb-2{
+
+    margin-bottom:var(--space-md);
+
+}
+
+.mb-3{
+
+    margin-bottom:var(--space-lg);
+
+}
+
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media(max-width:992px){
+
+    .grid-4{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .grid-3{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .grid-2,
+
+    .grid-3,
+
+    .grid-4{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .section{
+
+        padding:60px 0;
+
+    }
+
+}

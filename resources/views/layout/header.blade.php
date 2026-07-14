@@ -1,35 +1,73 @@
-<!-- Navbar -->
+<header class="header">
+    <div class="container">
+        <nav class="navbar">
+            <!-- Logo -->
+            <a href="" class="logo">
+                Ghamdan Store
+            </a>
+            <!-- Menu -->
+            <ul class="nav-menu" id="nav-menu">
+                @if (Auth::check() && Auth::user()->role == 'admin')
+                    <li>
+                        <a href="{{ route('dashboard') }}" class="nav-link">
+                            Dashboard
+                        </a>
+                    </li>
+                @endif
 
-<nav>
-    <div class="logo">Ghamdan Store</div>
+                <li>
+                    <a href="" class="nav-link">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('shop.product') }}" class="nav-link">
+                        Products
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('shop.category') }}" class="nav-link">
+                        Categories
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('contact_us') }}" class="nav-link">
+                        Contact
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('orders.index') }}" class="nav-link">
+                        My Orders
+                    </a>
+                </li>
+            </ul>
+            <!-- Right Side -->
+            <button class="menu-toggle" id="menu-toggle">
 
-    <ul>
-        @if (Auth::check() && Auth::user()->role == 'admin')
-        <li><a href="{{ route('dashboard') }}">Dashboard</a></li>    
-        @endif
-        <li><a href="#">Home</a></li>
-        <li><a href="{{ route('shop.product') }}">All Products</a></li>
-        <li><a href="{{ route('shop.category') }}">Categories</a></li>
-        <li><a href="{{ route('contact_us') }}">Contact</a></li>
-        <li><a href="{{ route('orders.index') }}">My Order</a></li>
-        <li><a href="{{ route('orders.index') }}"></a></li>
-        <li> <a href="{{ route('card.index') }}" class="cart-icon">🛒<span class="cart-count"></span></a></li>
-        {{-- @auth
-            <div class="d-flex align-items-center">
-                <i class="fas fa-user-circle fs-4"></i>
-                <span class="ms-2">{{ Auth::user()->name }}</span>
+                ☰
+
+            </button>
+            <div class="nav-actions">
+                <a href="{{ route('card.index') }}" class="cart-btn">
+                    🛒
+                    <span class="cart-count">
+                        {{ Auth::check() ? Auth::user()->cart?->cartItems()->count() ?? 0 : 0 }}
+                    </span>
+                </a>
+                @auth
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button class="btn btn-danger btn-sm">
+                            Logout
+                        </button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}" class="btn btn-primary btn-sm">
+                        Login
+                    </a>
+                @endauth
             </div>
-        @endauth --}}
-        @auth
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-
-                <button type="submit" class="btn btn-danger" style="width: 125px" >
-                    تسجيل الخروج
-                </button>
-            </form>
-        @endauth
-    </ul>
-</nav>
-
-<!-- Hero -->
+        </nav>
+    </div>
+    
+</header>

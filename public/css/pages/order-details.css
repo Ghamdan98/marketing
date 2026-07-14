@@ -1,0 +1,65 @@
+/* ==========================================
+   Order Details
+========================================== */
+
+.order-info-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:24px;
+
+    margin-bottom:32px;
+
+}
+
+.order-info-grid .card{
+
+    height:100%;
+
+}
+
+.order-info-grid p{
+
+    margin-bottom:14px;
+
+    color:var(--text-light);
+
+    line-height:1.7;
+
+}
+
+.order-info-grid strong{
+
+    color:var(--text-dark);
+
+}
+
+.table-product-image{
+
+    width:70px;
+
+    height:70px;
+
+    object-fit:cover;
+
+    border-radius:var(--radius-md);
+
+    border:1px solid var(--border-color);
+
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media(max-width:768px){
+
+    .order-info-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

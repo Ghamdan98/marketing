@@ -1,0 +1,25 @@
+.search-form{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    width:100%;
+
+}
+
+.search-form .form-control{
+
+    flex:1;
+
+}
+
+.search-form .btn{
+
+    min-width:140px;
+
+    white-space:nowrap;
+
+}

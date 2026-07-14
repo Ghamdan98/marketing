@@ -1,37 +1,167 @@
-/* Hero */
+/* ==========================================
+   Hero Section
+========================================== */
 
-.hero {
-    height: 80vh;
-    background: linear-gradient(to right, #0f172a, #1e293b);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.hero{
+
+    background: linear-gradient(135deg,#f8fafc,#eef4ff);
+
+    padding: 100px 0;
+
+}
+
+.hero-content{
+
+    max-width: 650px;
+
+    margin: 0 auto;
+
     text-align: center;
-    padding: 20px;
+
 }
 
-.hero-content h1 {
-    font-size: 55px;
+.hero-badge{
+
+    display: inline-block;
+
+    padding: 8px 18px;
+
     margin-bottom: 20px;
+
+    background: rgba(59,130,246,.1);
+
+    color: var(--primary);
+
+    border-radius: 50px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
 }
 
-.hero-content p {
+.hero h1{
+
+    font-size: 56px;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+
+    margin-bottom: 20px;
+
+    color: var(--text-dark);
+
+}
+
+.hero p{
+
     font-size: 20px;
-    margin-bottom: 30px;
+
+    color: var(--text-light);
+
+    line-height: 1.8;
+
+    margin-bottom: 35px;
+
 }
 
-.btn {
-    background: #38bdf8;
-    color: white;
-    padding: 15px 35px;
-    border: none;
-    border-radius: 8px;
+.hero-actions{
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 16px;
+
+    flex-wrap: wrap;
+
+}
+
+
+/* ==========================================
+   Featured Products
+========================================== */
+
+.products{
+
+    padding: 80px 0;
+
+}
+
+.section-header{
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 40px;
+
+    gap: 20px;
+
+}
+
+.section-title{
+
+    font-size: 38px;
+
+    font-weight: 700;
+
+    color: var(--text-dark);
+
+}
+
+.section-link{
+
+    color: var(--primary);
+
     text-decoration: none;
-    font-size: 18px;
-    transition: 0.3s;
+
+    font-weight: 600;
+
+    transition: var(--transition);
+
 }
 
-.btn:hover {
-    background: #0ea5e9;
+.section-link:hover{
+
+    color: var(--primary-dark);
+
+}
+
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media (max-width:768px){
+
+    .hero{
+
+        padding: 70px 0;
+
+    }
+
+    .hero h1{
+
+        font-size: 38px;
+
+    }
+
+    .hero p{
+
+        font-size: 17px;
+
+    }
+
+    .section-header{
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
 }

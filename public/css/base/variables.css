@@ -1,29 +1,72 @@
 :root{
 
---primary:#0f172a;
+/* ========= COLORS ========= */
 
---sacondery:#0ea5e9;
+--primary:#2563EB;
+--primary-dark:#1D4ED8;
+--primary-light:#60A5FA;
 
---success:#10b981;
+--success:#10B981;
+--danger:#EF4444;
+--warning:#F59E0B;
+--info:#06B6D4;
 
---danger:#ef4444;
+/* ========= BACKGROUND ========= */
 
---warning:#f59e0b;
+--bg:#F8FAFC;
+--surface:#FFFFFF;
+--card:#FFFFFF;
 
---gray:#6b7280;
+/* ========= TEXT ========= */
 
---radius:12px;
+--text:#111827;
+--text-light:#6B7280;
+--text-white:#FFFFFF;
 
---shadow:0 4px 15px rgba(0,0,0,.08);
+/* ========= BORDER ========= */
 
-}
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial;
-}
+--border:#E5E7EB;
 
-body {
-    background: #f5f5f5;
+/* ========= SHADOW ========= */
+
+--shadow-sm:0 2px 4px rgba(0,0,0,.05);
+--shadow-md:0 5px 15px rgba(0,0,0,.08);
+--shadow-lg:0 15px 35px rgba(0,0,0,.12);
+
+/* ========= RADIUS ========= */
+
+--radius-sm:6px;
+--radius-md:10px;
+--radius-lg:15px;
+--radius-xl:25px;
+
+/* ========= SPACING ========= */
+
+--space-xs:4px;
+--space-sm:8px;
+--space-md:16px;
+--space-lg:24px;
+--space-xl:32px;
+--space-2xl:48px;
+
+/* ========= FONT ========= */
+
+--font-family:'Poppins',sans-serif;
+
+--text-xs:12px;
+--text-sm:14px;
+--text-md:16px;
+--text-lg:18px;
+--text-xl:22px;
+--text-2xl:30px;
+--text-3xl:40px;
+
+/* ========= TRANSITION ========= */
+
+--transition:0.3s ease;
+
+/* ========= CONTAINER ========= */
+
+--container:1300px;
+
 }

@@ -1,7 +1,205 @@
-footer {
-    background: #0f172a;
-    color: white;
+/* ==========================================
+   Footer
+========================================== */
+
+.footer {
+
+    margin-top: 80px;
+
+    background: var(--text);
+
+    color: #fff;
+
+    padding: 70px 0 25px;
+
+}
+
+
+/* ==========================================
+   Footer Grid
+========================================== */
+
+.footer-grid {
+
+    display: grid;
+
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+
+    gap: 50px;
+
+}
+
+
+/* ==========================================
+   Footer Section
+========================================== */
+
+.footer-section h4 {
+
+    font-size: var(--text-lg);
+
+    margin-bottom: 20px;
+
+    color: #fff;
+
+}
+
+.footer-section p {
+
+    color: rgba(255,255,255,.7);
+
+    line-height: 1.8;
+
+}
+
+
+/* ==========================================
+   Logo
+========================================== */
+
+.footer-logo {
+
+    font-size: 32px;
+
+    font-weight: 700;
+
+    color: #fff;
+
+    margin-bottom: 18px;
+
+}
+
+.footer-description {
+
+    max-width: 320px;
+
+}
+
+
+/* ==========================================
+   Links
+========================================== */
+
+.footer-links {
+
+    list-style: none;
+
+    padding: 0;
+
+    margin: 0;
+
+}
+
+.footer-links li {
+
+    margin-bottom: 14px;
+
+}
+
+.footer-links a {
+
+    color: rgba(255,255,255,.75);
+
+    transition: var(--transition);
+
+}
+
+.footer-links a:hover {
+
+    color: #fff;
+
+    padding-left: 6px;
+
+}
+
+
+/* ==========================================
+   Contact
+========================================== */
+
+.footer-contact {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+}
+
+.footer-contact p {
+
+    margin: 0;
+
+}
+
+
+/* ==========================================
+   Bottom
+========================================== */
+
+.footer-bottom {
+
+    margin-top: 60px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid rgba(255,255,255,.1);
+
     text-align: center;
-    padding: 25px;
-    margin-top: 50px;
+
+}
+
+.footer-bottom p {
+
+    margin: 0;
+
+    color: rgba(255,255,255,.6);
+
+}
+
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media (max-width:992px){
+
+    .footer-grid{
+
+        grid-template-columns: repeat(2,1fr);
+
+        gap:40px;
+
+    }
+
+}
+
+
+@media (max-width:768px){
+
+    .footer{
+
+        text-align:center;
+
+    }
+
+    .footer-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .footer-description{
+
+        max-width:100%;
+
+    }
+
+    .footer-links a:hover{
+
+        padding-left:0;
+
+    }
+
 }
