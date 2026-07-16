@@ -67,7 +67,7 @@
                 <ul class="footer-links">
 
                     <li>
-                        <a href="{{ route('orders.index') }}">
+                        <a href="{{ route('customer_orders') }}">
                             My Orders
                         </a>
                     </li>

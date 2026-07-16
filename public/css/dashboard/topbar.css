@@ -1,0 +1,372 @@
+/* ==========================================
+   TOPBAR
+========================================== */
+
+.topbar{
+
+    height:80px;
+
+    background:var(--surface);
+
+    border-bottom:1px solid var(--border);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 32px;
+
+    box-shadow:var(--shadow-sm);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:500;
+    
+    margin:10px 10px 0;
+
+
+}
+
+/* ==========================================
+   LEFT
+========================================== */
+
+.topbar-left{
+
+    flex:1;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+/* ==========================================
+   MENU BUTTON
+========================================== */
+
+.menu-toggle{
+
+    width:46px;
+
+    height:46px;
+
+    border:none;
+
+    border-radius:var(--radius-md);
+
+    background:var(--bg);
+
+    color:var(--text-light);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    cursor:pointer;
+
+    transition:var(--transition);
+
+    flex-shrink:0;
+
+}
+
+.menu-toggle:hover{
+
+    background:var(--primary);
+
+    color:#fff;
+
+}
+
+/* ==========================================
+   SEARCH
+========================================== */
+
+.topbar-search{
+
+    width:100%;
+
+    max-width:420px;
+
+    height:48px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:0 18px;
+
+    background:var(--bg);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-lg);
+
+    transition:var(--transition);
+
+}
+
+.topbar-search:focus-within{
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 3px rgba(37,99,235,.12);
+
+}
+
+.topbar-search i{
+
+    color:var(--text-light);
+
+    font-size:16px;
+
+}
+
+.topbar-search input{
+
+    width:100%;
+
+    border:none;
+
+    outline:none;
+
+    background:none;
+
+    font-size:15px;
+
+    color:var(--text);
+
+}
+
+/* ==========================================
+   RIGHT
+========================================== */
+
+.topbar-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:24px;
+
+    margin-left:30px;
+
+}
+
+/* ==========================================
+   NOTIFICATION
+========================================== */
+
+.topbar-icon{
+
+    width:46px;
+
+    height:46px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--bg);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    cursor:pointer;
+
+    position:relative;
+
+    transition:var(--transition);
+
+}
+
+.topbar-icon:hover{
+
+    background:var(--primary);
+
+    color:#fff;
+
+}
+
+.notification-count{
+
+    position:absolute;
+
+    top:4px;
+
+    right:4px;
+
+    width:18px;
+
+    height:18px;
+
+    border-radius:50%;
+
+    background:var(--danger);
+
+    color:#fff;
+
+    font-size:11px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+/* ==========================================
+   PROFILE
+========================================== */
+
+.admin-profile{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+}
+
+.admin-info{
+
+    text-align:right;
+
+}
+
+.admin-info h4{
+
+    font-size:15px;
+
+    color:var(--text);
+
+    font-weight:600;
+
+}
+
+.admin-info span{
+
+    display:block;
+
+    margin-top:2px;
+
+    color:var(--text-light);
+
+    font-size:13px;
+
+}
+
+.admin-avatar{
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    color:#fff;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-weight:700;
+
+    font-size:18px;
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:992px){
+
+    .topbar{
+
+        padding:0 20px;
+
+    }
+
+    .topbar-search{
+
+        max-width:300px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .topbar{
+
+        padding:0 16px;
+
+        height:72px;
+
+    }
+
+    .topbar-search{
+
+        display:none;
+
+    }
+
+    .admin-info{
+
+        display:none;
+
+    }
+
+    .topbar-right{
+
+        gap:14px;
+
+        margin-left:10px;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .topbar{
+
+        padding:0 12px;
+
+    }
+
+    .menu-toggle,
+
+    .topbar-icon,
+
+    .admin-avatar{
+
+        width:42px;
+
+        height:42px;
+
+    }
+
+}

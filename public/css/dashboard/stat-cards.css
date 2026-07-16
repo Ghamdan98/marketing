@@ -1,0 +1,147 @@
+/* ==========================================
+   Statistics
+========================================== */
+
+.stat-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+    gap:24px;
+
+    margin-bottom:32px;
+
+}
+
+/* ==========================================
+   Card
+========================================== */
+
+.stat-card{
+
+    background:#fff;
+
+    border-radius:16px;
+
+    padding:24px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    box-shadow:var(--shadow-sm);
+
+    transition:var(--transition);
+
+}
+
+.stat-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:var(--shadow-md);
+
+}
+
+/* ==========================================
+   Icon
+========================================== */
+
+.stat-icon{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:30px;
+
+}
+
+/* ==========================================
+   Colors
+========================================== */
+
+.stat-primary{
+
+    background:#DBEAFE;
+
+    color:#2563EB;
+
+}
+
+.stat-success{
+
+    background:#DCFCE7;
+
+    color:#16A34A;
+
+}
+
+.stat-warning{
+
+    background:#FEF3C7;
+
+    color:#D97706;
+
+}
+
+.stat-danger{
+
+    background:#FEE2E2;
+
+    color:#DC2626;
+
+}
+
+/* ==========================================
+   Text
+========================================== */
+
+.stat-content{
+
+    flex:1;
+
+}
+
+.stat-content h4{
+
+    font-size:15px;
+
+    font-weight:600;
+
+    color:var(--text-light);
+
+    margin-bottom:8px;
+
+}
+
+.stat-content h2{
+
+    font-size:32px;
+
+    font-weight:700;
+
+    color:var(--text-dark);
+
+    margin-bottom:6px;
+
+}
+
+.stat-text{
+
+    font-size:14px;
+
+    color:var(--text-light);
+
+}

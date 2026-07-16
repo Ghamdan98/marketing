@@ -1,76 +1,177 @@
 @extends('layout.admin')
+
+@section('title','Product Details')
+
 @section('content')
-    <div class="product-details">
 
-        <div class="product-card">
+<div class="page-header">
 
-            <div class="product-image-section">
+    <div>
 
-                <img src="{{ asset('storage/' . $product->image) }}" class="main-image">
+        <h1 class="page-title">
 
-            </div>
+            Product Details
 
-            <div class="product-info">
+        </h1>
 
-                <span class="category">
+        <p class="page-subtitle">
 
-                    {{ $product->category?->name }}
+            View complete information about the product.
 
-                </span>
-
-                <h1>{{ $product->name }}</h1>
-
-                <p class="price">
-
-                    ${{ $product->price }}
-
-                </p>
-
-                <p class="description">
-
-                    {{ $product->description }}
-
-                </p>
-
-                <div class="info-list">
-
-                    <div class="info-item">
-
-                        <strong>Quantity:</strong>
-
-                        {{ $product->quantity }}
-
-                    </div>
-
-                    <div class="info-item">
-
-                        <strong>Created At:</strong>
-
-                        {{ $product->created_at->format('Y-m-d') }}
-
-                    </div>
-
-                </div>
-
-                <div class="buttons">
-
-                    <a href="{{ route('products.edit', $product->id) }}" class="edit-btn">
-
-                        Edit Product
-
-                    </a>
-
-                    <a href="{{ route('products.index') }}" class="back-btn">
-
-                        Back
-
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
+        </p>
 
     </div>
+
+    <div class="page-actions">
+
+        <a href="{{ route('products.index') }}"
+           class="btn-cancel">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back
+
+        </a>
+
+        <a href="{{ route('products.edit',$product) }}"
+           class="btn-primary">
+
+            <i class="fa-solid fa-pen"></i>
+
+            Edit Product
+
+        </a>
+
+    </div>
+
+</div>
+
+<div class="product-show">
+
+    <div class="product-image-card">
+
+        <img src="{{ asset('storage/'.$product->image) }}">
+
+    </div>
+
+    <div class="product-info-card">
+
+        <table>
+
+            <tr>
+
+                <th>Name</th>
+
+                <td>{{ $product->name }}</td>
+
+            </tr>
+
+            <tr>
+
+                <th>Slug</th>
+
+                <td>{{ $product->slug }}</td>
+
+            </tr>
+
+            <tr>
+
+                <th>Category</th>
+
+                <td>{{ $product->category->name }}</td>
+
+            </tr>
+
+            <tr>
+
+                <th>Price</th>
+
+                <td>${{ number_format($product->price,2) }}</td>
+
+            </tr>
+
+            <tr>
+
+                <th>Quantity</th>
+
+                <td>{{ $product->quantity }}</td>
+
+            </tr>
+
+            <tr>
+
+                <th>Status</th>
+
+                <td>
+
+                    @if($product->status)
+
+                        <span class="badge success">
+
+                            Active
+
+                        </span>
+
+                    @else
+
+                        <span class="badge danger">
+
+                            Inactive
+
+                        </span>
+
+                    @endif
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>Created</th>
+
+                <td>
+
+                    {{ $product->created_at->format('d M Y') }}
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>Updated</th>
+
+                <td>
+
+                    {{ $product->updated_at->format('d M Y') }}
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+<div class="form-card">
+
+    <div class="card-header">
+
+        <h2>Description</h2>
+
+    </div>
+
+    <div class="card-body">
+
+      <div class="description-content">
+
+        {{ $product->description }}
+
+    </div>
+
+</div>
+
 @endsection

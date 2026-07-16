@@ -1,117 +1,29 @@
 @extends('layout.admin')
 
+@section('title','Edit Product')
+
 @section('content')
-    <div class="product-form-container">
 
-        <h1>Edit Product</h1>
+<div class="page-header">
 
-        <form action="{{ route('products.update',$product->id) }}" 
-               method="POST" 
-               enctype="multipart/form-data">
+    <div>
 
-            @csrf
-            @method('PUT')
+        <h1 class="page-title">Edit Product</h1>
 
-            <!-- NAME -->
+        <p class="page-subtitle">
 
-            <div class="form-group">
+            Update product information.
 
-                <label>Product Name</label>
-
-                <input type="text" name="name" value="{{ $product->name }}">
-
-            </div>
-
-            <!-- PRICE -->
-
-            <div class="form-group">
-
-                <label>Price</label>
-
-                <input type="number" name="price" value="{{ $product->price }}">
-
-            </div>
-
-            <div class="form-group">
-
-                <label>Seles Price</label>
-
-                <input type="number" name="sele_price" value="{{ $product->sele_price }}">
-
-            </div>
-            <div class="form-group">
-
-                <label>Quantity</label>
-
-                <input type="number" name="quantity" value="{{ $product->quantity }}">
-
-            </div>
-
-
-            <!-- CATEGORY -->
-
-            <div class="form-group">
-
-                <label>Category</label>
-
-                <select name="category_id">
-
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : '' }}>
-
-                            {{ $category->name }}
-
-                        </option>
-                    @endforeach
-
-                </select>
-
-            </div>
-
-            <!-- DESCRIPTION -->
-
-            <div class="form-group">
-
-                <label>Description</label>
-
-                <textarea name="description">{{ $product->description }}</textarea>
-
-            </div>
-
-            <!-- CURRENT IMAGE -->
-
-            <div class="form-group">
-
-                <label>Current Image</label>
-
-                <br>
-
-                <img src="{{ asset('storage/' . $product->image) }}"
-                    style="width: 150px;
-                            height: 150px;
-                            object-fit: cover;
-                            border-radius: 10px;"
-                    class="product-image">
-
-            </div>
-
-            <!-- NEW IMAGE -->
-
-            <div class="form-group">
-
-                <label>New Image</label>
-
-                <input type="file" name="image" value="{{ $product->image }}">
-
-            </div>
-
-            <button type="submit" class="save-btn">
-
-                Update Product
-
-            </button>
-
-        </form>
+        </p>
 
     </div>
+
+</div>
+
+@include('admin.products.partials.form',[
+    'action'=>route('products.update',$product),
+    'method'=>'PUT',
+    'button'=>'Update Product'
+])
+
 @endsection

@@ -45,11 +45,12 @@
 
     color:var(--primary);
 
-    font-size:32px;
+    font-size:24px;
 
     font-weight:700;
 
     letter-spacing:-1px;
+    margin-right: 25px;
 
 }
 

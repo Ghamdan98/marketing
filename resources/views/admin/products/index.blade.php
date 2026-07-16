@@ -1,102 +1,272 @@
 @extends('layout.admin')
+
+@section('title','Products')
+
 @section('content')
-    <div class="products-page">
 
-        <div class="page-header">
+<div class="page-header">
 
-            <h1>Products</h1>
-            @if (session('success'))
-                <div class="success-message">
+    <div>
 
-                    {{ session('success') }}
+        <h1 class="page-title">Products</h1>
 
-                </div>
-            @endif
-            <a href="{{ route('products.create') }}" class="add-btn">
-                + Add Product
-            </a>
+        <p class="page-subtitle">
+            Manage all products in your store.
+        </p>
+
+    </div>
+
+    <a href="{{ route('products.create') }}" class="btn-primary">
+
+        <i class="fa-solid fa-plus"></i>
+
+        Add Product
+
+    </a>
+
+</div>
+
+<!-- Filter Bar -->
+
+<div class="filter-card">
+
+    <form method="GET" class="filter-form">
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search products..."
+                value="{{ request('search') }}">
 
         </div>
 
-        <table class="products-table">
+        <select name="category">
 
-            <thead>
+            <option value="">All Categories</option>
 
-                <tr>
+            @foreach($categories as $category)
 
-                    <th>ID</th>
+                <option
+                    value="{{ $category->id }}"
+                    @selected(request('category')==$category->id)>
 
-                    <th>Image</th>
+                    {{ $category->name }}
 
-                    <th>Name</th>
+                </option>
 
-                    <th>Price</th>
+            @endforeach
 
-                    <th>Quantity</th>
+        </select>
 
-                    <th>Category</th>
+        <select name="status">
 
-                    <th>Actions</th>
+            <option value="">All Status</option>
 
-                </tr>
+            <option value="1">Active</option>
 
-            </thead>
+            <option value="0">Inactive</option>
 
-            <tbody>
+        </select>
 
-                @foreach ($products as $p)
-                    <tr>
-                        <td>{{ $p->id }}</td>
-                        @if ($p->image)
-                            <td>
+        <button class="btn-secondary">
 
-                                <img class="category-image" src="{{ asset('storage/' . $p->image) }}" width="60">
+            Filter
 
-                            </td>
-                        @else
-                            <td>
-                                no image
-                            </td>
-                        @endif
+        </button>
 
+    </form>
 
-                        <td><a class="product-link" href="{{ route('products.show', $p->id) }}">
-                                {{ $p->name }}</a></td>
+</div>
 
-                        <td>{{ $p->price }}$</td>
+<!-- Products Table -->
 
-                        <td>{{ $p->quantity }}</td>
+<div class="table-card">
 
-                        <td>{{ $p->category->name }}</td>
-                        <td class="actions">
+    @if($products->count())
 
-                            <a href="{{ route('products.edit',$p->id) }}" class="edit-btn">
+    <table class="data-table">
 
-                                Edit
+        <thead>
 
-                            </a>
+            <tr>
 
-                            <form action="{{ route('products.destroy',$p->id) }}" method="POST">
+                <th>Image</th>
 
-                                @csrf
-                                @method('DELETE')
+                <th>Product</th>
 
-                                <button class="delete-btn">
+                <th>Category</th>
 
-                                    Delete
+                <th>Price</th>
 
-                                </button>
+                <th>Stock</th>
 
-                            </form>
+                <th>Status</th>
 
-                        </td>
+                <th>Created</th>
 
-                    </tr>
-                @endforeach
+                <th>Actions</th>
 
-            </tbody>
+            </tr>
 
-        </table>
+        </thead>
+
+        <tbody>
+
+            @foreach($products as $product)
+
+            <tr>
+
+                <td>
+
+                    <img
+                        src="{{ asset('storage/'.$product->image) }}"
+                        class="product-thumb">
+
+                </td>
+
+                <td>
+
+                    <div class="product-name">
+
+                        {{ $product->name }}
+
+                    </div>
+
+                    <div class="product-slug">
+
+                        {{ $product->slug }}
+
+                    </div>
+
+                </td>
+
+                <td>
+
+                    {{ $product->category->name }}
+
+                </td>
+
+                <td>
+
+                    ${{ number_format($product->price,2) }}
+
+                </td>
+
+                <td>
+
+                    {{ $product->stock }}
+
+                </td>
+
+                <td>
+
+                    @if($product->status)
+
+                        <span class="badge success">
+
+                            Active
+
+                        </span>
+
+                    @else
+
+                        <span class="badge danger">
+
+                            Inactive
+
+                        </span>
+
+                    @endif
+
+                </td>
+
+                <td>
+
+                    {{ $product->created_at->format('d M Y') }}
+
+                </td>
+
+                <td>
+
+                    <div class="table-actions">
+                        <a href="{{ route('products.show',$product) }}"
+                         class="action-btn view">
+
+                          <i class="fa-solid fa-eye"></i>
+
+                        </a>
+
+                        <a href="{{ route('products.edit',$product) }}"
+                           class="action-btn edit">
+
+                            <i class="fa-solid fa-pen"></i>
+
+                        </a>
+
+                        <form
+                            action="{{ route('products.destroy',$product) }}"
+                            method="POST">
+
+                            @csrf
+
+                            @method('DELETE')
+
+                            <button class="action-btn delete">
+
+                                <i class="fa-solid fa-trash"></i>
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            @endforeach
+
+        </tbody>
+
+    </table>
+
+    <div class="pagination-wrapper">
+
+        {{-- {{ $products->links() }} --}}
 
     </div>
+
+    @else
+
+    <div class="empty-state">
+
+        <i class="fa-solid fa-box-open"></i>
+
+        <h3>No Products Found</h3>
+
+        <p>
+
+            Start by adding your first product.
+
+        </p>
+
+        <a
+            href="{{ route('products.create') }}"
+            class="btn-primary">
+
+            Add Product
+
+        </a>
+
+    </div>
+
+    @endif
+
+</div>
+
 @endsection

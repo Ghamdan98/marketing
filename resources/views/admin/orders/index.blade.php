@@ -1,102 +1,219 @@
 @extends('layout.admin')
 
-@section('title', 'Orders')
+@section('title','Orders')
 
 @section('content')
 
-    <div class="orders-page">
 
-        <div class="page-header">
-            <h2>Orders Management</h2>
+<div class="page-header">
 
-            <form method="GET">
+    <div>
 
-                <input type="text" name="search" placeholder="Search customer...">
+        <h1>Orders</h1>
 
-                <select name="status">
+        <p>Manage customer orders.</p>
 
-                    <option value="">All Status</option>
+    </div>
 
-                    <option value="pending">Pending</option>
+</div>
 
-                    <option value="processing">Processing</option>
+<div class="table-card">
 
-                    <option value="shipped">Shipped</option>
+    <div class="table-header">
 
-                    <option value="delivered">Delivered</option>
+        <div class="table-title">
 
-                    <option value="cancelled">Cancelled</option>
+            <h2>Orders List</h2>
 
-                </select>
-
-                <button>Search</button>
-
-            </form>
+            {{-- <p>{{ $orders->total() }} Orders Found</p> --}}
 
         </div>
 
-        <table class="orders-table">
+        <form method="GET">
 
-            <thead>
+            <div class="table-search">
 
-                <tr>
+                <i class="fa-solid fa-search"></i>
 
-                    <th>#</th>
+                <input
+                    type="text"
+                    name="search"
+                    value="{{ request('search') }}"
+                    placeholder="Search order..."
+                >
 
-                    <th>Customer</th>
+            </div>
 
-                    <th>Total</th>
+        </form>
 
-                    <th>Status</th>
+    </div>
 
-                    <th>Date</th>
+    <table class="data-table">
 
-                    <th>Action</th>
+        <thead>
 
-                </tr>
+            <tr>
 
-            </thead>
+                <th>Order #</th>
 
-            <tbody>
+                <th>Customer</th>
 
-                @foreach ($orders as $order)
-                    <tr>
+                <th>Total</th>
 
-                        <td>#{{ $order->id }}</td>
+                <th>Payment</th>
 
-                        <td>{{ $order->user->name }}</td>
+                <th>Status</th>
 
-                        <td>${{ $order->total_price }}</td>
+                <th>Date</th>
 
-                        <td>
+                <th width="180">Actions</th>
 
-                            <span class="status {{ $order->status }}">
-                                {{ $order->status }}
-                            </span>
+            </tr>
 
-                        </td>
+        </thead>
 
-                        <td>{{ $order->created_at->format('Y-m-d') }}</td>
+        <tbody>
 
-                        <td>
+        @forelse($orders as $order)
 
-                            <a href="" class="view-btn">
+            <tr>
 
-                                View
+                <td>
 
-                            </a>
+                    <strong>#{{ $order->id }}</strong>
 
-                        </td>
+                </td>
 
-                    </tr>
-                @endforeach
+                <td>
 
-            </tbody>
+                    {{ $order->user->name }}
 
-        </table>
+                </td>
+
+                <td>
+
+                    ${{ number_format($order->total_price,2) }}
+
+                </td>
+
+                <td>
+
+                    <span class="badge success">
+
+                        {{ ucfirst($order->payment_method) }}
+
+                    </span>
+
+                </td>
+
+                <td>
+
+                    @switch($order->status)
+
+                        @case('pending')
+
+                            <span class="badge warning">Pending</span>
+
+                            @break
+
+                        @case('processing')
+
+                            <span class="badge info">Processing</span>
+
+                            @break
+
+                        @case('shipped')
+
+                            <span class="badge info">Shipped</span>
+
+                            @break
+
+                        @case('delivered')
+
+                            <span class="badge success">Delivered</span>
+
+                            @break
+
+                        @case('cancelled')
+
+                            <span class="badge danger">Cancelled</span>
+
+                            @break
+
+                    @endswitch
+
+                </td>
+
+                <td>
+
+                    {{ $order->created_at->format('d M Y') }}
+
+                </td>
+
+                <td>
+
+                    <div class="table-actions">
+
+                        <a
+                            {{-- href="{{ route('order.show',$order) }}" --}}
+                            class="action-btn view"
+                        >
+                            <i class="fa-solid fa-eye"></i>
+                        </a>
+
+                        <a
+                            {{-- href="{{ route('order.invoice',$order) }}" --}}
+                            class="action-btn edit"
+                        >
+                            <i class="fa-solid fa-file-invoice"></i>
+                        </a>
+
+                        <a
+                            {{-- href="{{ route('order.print',$order) }}" --}}
+                            class="action-btn"
+                            style="background:#EDE9FE;color:#7C3AED;"
+                        >
+                            <i class="fa-solid fa-print"></i>
+                        </a>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        @empty
+
+            <tr>
+
+                <td colspan="7">
+
+                    <div class="empty-table">
+
+                        <i class="fa-solid fa-bag-shopping"></i>
+
+                        <h3>No Orders Found</h3>
+
+                        <p>Customer orders will appear here.</p>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        @endforelse
+
+        </tbody>
+
+    </table>
+
+    <div class="pagination-wrapper">
 
         {{-- {{ $orders->links() }} --}}
 
     </div>
+
+</div>
 
 @endsection

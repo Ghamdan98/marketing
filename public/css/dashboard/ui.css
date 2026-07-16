@@ -1,0 +1,185 @@
+/* ==========================================
+   FILTER CARD
+========================================== */
+
+.filter-card{
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-lg);
+
+    box-shadow:var(--shadow-sm);
+
+    padding:24px;
+
+    margin-bottom:var(--space-xl);
+
+}
+
+/* ==========================================
+   FILTER FORM
+========================================== */
+
+.filter-form{
+
+    display:grid;
+
+    grid-template-columns:2fr 220px 180px auto;
+
+    gap:20px;
+
+    align-items:center;
+
+}
+
+/* ==========================================
+   SEARCH
+========================================== */
+
+.search-box{
+
+    position:relative;
+
+    width:100%;
+
+}
+
+.search-box i{
+
+    position:absolute;
+
+    left:18px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:var(--text-light);
+
+    font-size:16px;
+
+}
+
+.search-box input{
+
+    width:100%;
+
+    height:52px;
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-md);
+
+    background:var(--surface);
+
+    padding:0 18px 0 48px;
+
+    font-size:var(--text-md);
+
+    transition:var(--transition);
+
+}
+
+.search-box input:focus{
+
+    outline:none;
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 3px rgba(37,99,235,.12);
+
+}
+
+/* ==========================================
+   SELECT
+========================================== */
+
+.filter-form select{
+
+    width:100%;
+
+    height:52px;
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-md);
+
+    background:var(--surface);
+
+    padding:0 16px;
+
+    font-size:var(--text-md);
+
+    cursor:pointer;
+
+    transition:var(--transition);
+
+}
+
+.filter-form select:focus{
+
+    outline:none;
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 3px rgba(37,99,235,.12);
+
+}
+
+/* ==========================================
+   BUTTON
+========================================== */
+
+.filter-form .btn{
+
+    height:52px;
+
+    padding:0 24px;
+
+    white-space:nowrap;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:1200px){
+
+    .filter-form{
+
+        grid-template-columns:1fr 1fr;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .filter-card{
+
+        padding:18px;
+
+    }
+
+    .filter-form{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .filter-form .btn{
+
+        width:100%;
+
+    }
+
+}

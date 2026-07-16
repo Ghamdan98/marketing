@@ -1,115 +1,207 @@
 @extends('layout.admin')
 
+@section('title','Categories')
+
 @section('content')
-    <div class="categories-page">
 
-        <div class="page-header">
+<div class="page-header">
 
-            <h1>Categories</h1>
-            @if (session('success'))
-                <div class="success-message">
+    <div>
 
-                    {{ session('success') }}
+        <h1>Categories</h1>
 
-                </div>
-            @endif
-            <a href="{{ route('category.create') }}" class="add-btn">
+        <p>Manage all product categories.</p>
 
-                + Add Category
+    </div>
 
-            </a>
+    <a href="{{ route('create_category') }}" class="btn-primary">
+
+        <i class="fa-solid fa-plus"></i>
+
+        Add Category
+
+    </a>
+
+</div>
+
+<div class="table-card">
+
+    <div class="table-header">
+
+        <div class="table-title">
+
+            <h2>Category List</h2>
+
+            <p>{{ $categories->total() }} Categories Found</p>
 
         </div>
 
-        <table class="categories-table">
+        <form method="GET">
 
-            <thead>
+            <div class="table-search">
 
-                <tr>
+                <i class="fa-solid fa-search"></i>
 
-                    <th>ID</th>
+                <input
+                    type="text"
+                    name="search"
+                    value="{{ request('search') }}"
+                    placeholder="Search category..."
+                >
 
-                    <th>Name</th>
+            </div>
 
-                    <th>Description</th>
-
-                    <th>Image</th>
-
-                    <th>Actions</th>
-
-                </tr>
-            </thead>
-
-            <tbody>
-
-                @foreach ($category as $cate)
-                    <tr>
-
-                        <td>{{ $cate->id }}</td>
-
-                        <td>{{ $cate->name }}</td>
-
-                        <td>
-
-                            {{ $cate->description }}
-
-                        </td>
-                        <td>
-                        @if ($cate->image)
-                        <img  class="category-image" src="{{ asset('storage/'.$cate->image) }}" alt="">
-                        @else
-                        no image
-                        @endif
-                        </td>
-                        <td>
-                            50 Iphone
-
-                            {{-- {{ $category->products_count }} --}}
-
-                        </td>
-
-                        <td class="actions">
-
-                            <a href="{{ route('category.edit',$cate->id) }}" class="edit-btn">
-
-                                Edit
-
-                            </a>
-
-                            <form action="{{ route('category.destroy',$cate->id) }}" method="POST" onsubmit="confirmDelete()">
-
-                                @csrf
-                                @method('DELETE')
-
-                                <button class="delete-btn">
-
-                                    Delete
-
-                                </button>
-
-                            </form>
-
-                        </td>
-
-                    </tr>
-                @endforeach
-
-            </tbody>
-
-        </table>
+        </form>
 
     </div>
-    <script>
-        function confirmDelete() {
-    // تظهر النافذة العادية للمستخدم
-    if (confirm("هل أنت متأكد أنك تريد حذف هذا العنصر؟")) {
-        // إذا ضغط المستخدم "موافق" (OK) يتم تنفيذ هذا الكود:
-        alert("تم حذف العنصر بنجاح.");
-        // (هنا تضع الكود الخاص بك الذي يحذف العنصر فعلياً من قاعدة البيانات أو السلة)
-    } else {
-        // إذا ضغط المستخدم "إلغاء" (Cancel) لن يحدث شيء وتغلق النافذة تلقائياً
-        console.log("تم إلغاء الحذف");
-    }
-}
-        </script>
+
+    <table class="data-table">
+
+        <thead>
+
+            <tr>
+
+                <th>Image</th>
+
+                <th>Name</th>
+
+                <th>Slug</th>
+
+                <th>Products</th>
+
+                <th>Created</th>
+
+                <th width="170">Actions</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        @forelse($categories as $category)
+
+            <tr>
+
+                <td>
+
+                    <img
+                        class="table-image"
+                        src="{{ asset('storage/'.$category->image) }}"
+                        alt="{{ $category->name }}"
+                    >
+
+                </td>
+
+                <td>
+
+                    <strong>{{ $category->name }}</strong>
+
+                </td>
+
+                <td>
+
+                    {{ $category->slug }}
+
+                </td>
+
+                <td>
+
+                    <span class="badge info">
+
+                        {{ $category->product_count }}
+
+                    </span>
+
+                </td>
+
+                <td>
+
+                    {{ $category->created_at->format('d M Y') }}
+
+                </td>
+
+                <td>
+
+                    <div class="table-actions">
+
+                        <a
+                            href="{{ route('category.show',$category) }}"
+                            class="action-btn view"
+                        >
+
+                            <i class="fa-solid fa-eye"></i>
+
+                        </a>
+
+                        <a
+                            href="{{ route('category.edit',$category) }}"
+                            class="action-btn edit"
+                        >
+
+                            <i class="fa-solid fa-pen"></i>
+
+                        </a>
+
+                        <form
+                            action="{{ route('category.destroy',$category) }}"
+                            method="POST"
+                            onsubmit="return confirm('Delete this category?')"
+                        >
+
+                            @csrf
+
+                            @method('DELETE')
+
+                            <button
+                                class="action-btn delete"
+                                type="submit"
+                            >
+
+                                <i class="fa-solid fa-trash"></i>
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        @empty
+
+            <tr>
+
+                <td colspan="6">
+
+                    <div class="empty-table">
+
+                        <i class="fa-solid fa-layer-group"></i>
+
+                        <h3>No Categories Found</h3>
+
+                        <p>Create your first category.</p>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        @endforelse
+
+        </tbody>
+
+    </table>
+
+    <div class="pagination-wrapper">
+
+        {{-- {{ $categories->links() }} --}}
+
+    </div>
+
+</div>
+
 @endsection

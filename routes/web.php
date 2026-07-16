@@ -20,7 +20,6 @@ use App\Http\Controllers\OrderController;
 */
 
 Route::get('/', [ProductController::class, 'product_desplay']);
-// Route::get('/',function(){ return view('auth.register');});
 Route::get('/shop/product', [ProductController::class, 'shop'])->name('shop.product');
 Route::get('/product/search', [ProductController::class, 'search_product'])->name('search');
 Route::get('/shop/category', [CategoryController::class, 'shop'])->name('shop.category');
@@ -37,28 +36,20 @@ Route::get('login', function () {
 // products pages 
 Route::resource('/products', ProductController::class);
 // categories page
-Route::get('/category/dash', [CategoryController::class, 'index'])->name('category.index');
-
-
 // orders
 Route::get('/order', [OrderController::class,'display_order'])->name('order.index');
-
 // customers
 Route::get('/customer', [Controller::class, 'customer_desplay'])->name('customer.index');
 Route::get('/admin/show{customer}',[Controller::class, 'show_customer'])->name('customer.show');
-// middleware
-
+// middleware admin
 Route::middleware('admin')->group(function () {
-    Route::get('/category/create', function () {
+    Route::get('/category/create_dash', function () {
         return view('admin.categories.create');
-    })->name('category.create');
-    Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
-    Route::get('/category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
-    Route::put('/category/{id}', [CategoryController::class, 'update'])->name('category.update');
-    Route::delete('category/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+    })->name('create_category');
+    Route::resource('category', CategoryController::class);
     Route::get('/dashboard',[Controller::class,'dashbaord'])->name('dashboard');
 });
-
+// middleware auth
 Route::middleware('auth')->group(function () {
     // card
     Route::get('/card/{prod}', [CardController::class, 'add_item'])->name('add_card');
@@ -73,7 +64,7 @@ Route::middleware('auth')->group(function () {
     // orders
     Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
     Route::post('/order', [OrderController::class, 'store'])->name('order.store');
-    Route::get('/my_order', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/my_order', [OrderController::class, 'customer_index'])->name('customer_orders');
     Route::get('/order_details/{order}', [OrderController::class, 'show_details'])->name('order.details');
 });
 

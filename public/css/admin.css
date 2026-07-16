@@ -1,0 +1,12 @@
+@import url("base/variables.css");
+@import url("dashboard/topbar.css");
+@import url("dashboard/sidebar.css");
+@import url("dashboard/ui.css");
+@import url("dashboard/admin-form.css");
+@import url("dashboard/product.css");
+@import url("dashboard/dashboard.css");
+@import url("dashboard/product-list.css");
+@import url("dashboard/table.css");
+/* @import url("dashboard/stat-cards.css");
+@import url("dashboard/charts.css");
+@import url("dashboard/dashboard-table.css"); */

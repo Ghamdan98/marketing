@@ -36,7 +36,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('orders.index') }}" class="nav-link">
+                    <a href="{{ route('customer_orders') }}" class="nav-link">
                         My Orders
                     </a>
                 </li>
