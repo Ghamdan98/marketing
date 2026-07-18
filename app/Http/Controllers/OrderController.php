@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use App\Models\card;
 use App\Models\order;
@@ -12,11 +13,29 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function customer_index()
     {
         //
         $orders = order::where('user_id',Auth::user()->id)->latest()->get();
         return view('/orders/my_orders', compact('orders'));
+    }
+
+    public function index(Request $request)
+    {
+        $orders = Order::with('user')
+            ->when($request->search, function ($query) use ($request) {
+
+                $query->where('id', 'like', '%' . $request->search . '%')
+                    ->orWhereHas('user', function ($q) use ($request) {
+                        $q->where('name', 'like', '%' . $request->search . '%');
+                    });
+            })
+            ->latest()
+            ->paginate(10);
+
+        $orders->appends($request->query());
+
+        return view('admin.orders.index', compact('orders'));
     }
 
     public function checkout()
@@ -28,14 +47,16 @@ class OrderController extends Controller
         return view('/checkout', compact('card', 'total'));
     }
 
-    public function show_details(order $order){
+    public function show_details(order $order)
+    {
         $order->load('order_item.product');
-        return view('orders.order_details',compact('order'));
+        return view('orders.order_details', compact('order'));
     }
-    
-    public function display_order(){
+
+    public function display_order()
+    {
         $orders = order::with('user')->get();
-        return view('admin.orders.index' , compact('orders'));
+        return view('admin.orders.index', compact('orders'));
     }
     /**
      * Show the form for creating a new resource.
@@ -60,7 +81,7 @@ class OrderController extends Controller
             'city'  => 'required|string',
             'address_order' => 'required|string',
         ]);
-       $order = order::create([
+        $order = order::create([
             'user_id' => Auth::user()->id,
             'phone' => $validated['phone'],
             'city' => $validated['city'],
@@ -68,19 +89,19 @@ class OrderController extends Controller
             'total_price' => $total,
 
         ]);
-        foreach($card->card_item as $c){
+        foreach ($card->card_item as $c) {
             $total_price = $c->price * $c->quantity;
             order_item::create([
                 'order_id' => $order->id,
                 'product_id' => $c->product_id,
                 'price' => $c->price,
-                'quantity' =>$c->quantity,
+                'quantity' => $c->quantity,
                 'total' => $total_price,
             ]);
         }
         $card_id = card::findOrfail($card->id);
         $card_id->delete();
-        return redirect()->route('orders.index');
+        return redirect()->route('customer_orders');
     }
 
     /**
