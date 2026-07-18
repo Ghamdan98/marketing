@@ -4,21 +4,39 @@ namespace App\Http\Controllers;
 
 use App\Models\category;
 use Illuminate\Http\Request;
+
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    // public function index()
+    // {
+    //     //
+    //     $category = category::all();
+    //     return view('admin.categories.index',compact('category'));
+    // }
+    public function index(Request $request)
     {
-        //
-        $category = category::all();
-        return view('admin.categories.index',compact('category'));
-    }
+        $categories = Category::withCount('product')
 
-    public function shop(){
+            ->when($request->search, function ($query) use ($request) {
+
+                $query->where('name', 'like', '%' . $request->search . '%');
+            })
+
+            ->latest()
+
+            ->paginate(10)
+
+            ->withQueryString();
+
+        return view('admin.categories.index', compact('categories'));
+    }
+    public function shop()
+    {
         $category = category::all();
-        return view('/category',compact('category'));
+        return view('/category', compact('category'));
     }
     /**
      * Show the form for creating a new resource.
@@ -26,6 +44,7 @@ class CategoryController extends Controller
     public function create()
     {
         //
+        return "welcom";
     }
 
     /**
@@ -42,8 +61,8 @@ class CategoryController extends Controller
         ]);
 
         $imgePath = null;
-        if($request->hasFile('image')){
-            $imgePath = $request->file('image')->store('categories','public');
+        if ($request->hasFile('image')) {
+            $imgePath = $request->file('image')->store('categories', 'public');
         }
 
         category::create([
@@ -58,9 +77,12 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Category $category)
     {
-        //
+        $category->load('product')
+            ->loadCount('product');
+
+        return view('admin.categories.show', compact('category'));
     }
 
     /**
@@ -70,7 +92,7 @@ class CategoryController extends Controller
     {
         //
         $category = category::findOrFail($id);
-        return view('admin.categories.edit',compact('category'));
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -84,13 +106,13 @@ class CategoryController extends Controller
             "name" => "required|string",
             "slug" => "required|string",
             "description" => "nullable|string",
-            "image" =>"nullable|image",
+            "image" => "nullable|image",
         ]);
-        $imagePath = null ;
-        if($request->hasFile('image')){
-            $imagePath = $request->file('image')->store('categories','public');
-        }       
-        $category->update                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ([
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('categories', 'public');
+        }
+        $category->update([
             "name" => $validated['name'],
             "slug" => $validated['slug'],
             "description" => $validated['description'],
@@ -98,7 +120,7 @@ class CategoryController extends Controller
 
         ]);
 
-        return redirect()->route('category.index')->with('success',"update is successfly");
+        return redirect()->route('category.index')->with('success', "update is successfly");
     }
 
     /**
@@ -109,6 +131,6 @@ class CategoryController extends Controller
         //
         $category = category::findOrFail($id);
         $category->delete();
-        return redirect()->route('category.index')->with('success','successfly delete Item');
+        return redirect()->route('category.index')->with('success', 'successfly delete Item');
     }
 }

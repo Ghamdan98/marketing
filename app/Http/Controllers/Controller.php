@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\order;
+use Illuminate\Http\Request;
 use App\Models\order_item;
 use App\Models\product;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -38,6 +39,28 @@ class Controller extends BaseController
             compact('users', 'orders', 'products', 'seles', 'sele_product', 'order_list', 'sales_chart')
         );
     }
+public function customer_page_index(Request $request)
+{
+    $customers = User::where('role', 'customer')
+        ->withCount('order')
+        ->withSum('order', 'total_price')
+        ->when($request->search, function ($query) use ($request) {
+
+            $query->where(function ($q) use ($request) {
+
+                $q->where('name', 'like', '%' . $request->search . '%')
+                  ->orWhere('email', 'like', '%' . $request->search . '%')
+                  ->orWhere('phone', 'like', '%' . $request->search . '%');
+
+            });
+
+        })
+        ->latest()
+        ->paginate(10)
+        ->withQueryString();
+
+    return view('admin.customers.index', compact('customers'));
+}
 
     public function customer_desplay()
     {
@@ -45,10 +68,27 @@ class Controller extends BaseController
         return view('admin.customers.index', compact('customers'));
     }
 
-    public function show_customer(User $customer)
+    public function show_customer($id)
     {
-        $customer->load('order');
-        $customer->loadCount('order')->loadSum('order', 'total_price');
-        return view('admin.customers.show', compact('customer'));
+        $customer = User::where('role', 'customer')
+        ->with(['order' => function ($query) {
+            $query->latest();
+        }])
+        ->findOrFail($id);
+
+    $totalSpent = $customer->order->sum('total_price');
+
+    $averageOrder = $customer->order->count()
+        ? $totalSpent / $customer->order->count()
+        : 0;
+
+    $lastOrder = $customer->order->first();
+
+    return view('admin.customers.show', compact(
+        'customer',
+        'totalSpent',
+        'averageOrder',
+        'lastOrder'
+    ));
     }
 }

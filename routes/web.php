@@ -37,17 +37,20 @@ Route::get('login', function () {
 Route::resource('/products', ProductController::class);
 // categories page
 // orders
-Route::get('/order', [OrderController::class,'display_order'])->name('order.index');
+Route::get('/order', [OrderController::class, 'display_order'])->name('order.index');
 // customers
 Route::get('/customer', [Controller::class, 'customer_desplay'])->name('customer.index');
-Route::get('/admin/show{customer}',[Controller::class, 'show_customer'])->name('customer.show');
+// Route::get('/admin/show{customer}', [Controller::class, 'show_customer'])->name('customer.show');
+Route::get('/customer', [Controller::class,'customer_page_index'])->name('customer_page_index');
+Route::get('/customer/{id}', [Controller::class, 'show_customer'])
+    ->name('customer.show');
 // middleware admin
 Route::middleware('admin')->group(function () {
     Route::get('/category/create_dash', function () {
         return view('admin.categories.create');
     })->name('create_category');
     Route::resource('category', CategoryController::class);
-    Route::get('/dashboard',[Controller::class,'dashbaord'])->name('dashboard');
+    Route::get('/dashboard', [Controller::class, 'dashbaord'])->name('dashboard');
 });
 // middleware auth
 Route::middleware('auth')->group(function () {
@@ -63,9 +66,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // orders
     Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
-    Route::post('/order', [OrderController::class, 'store'])->name('order.store');
+    Route::resource('/order', OrderController::class);
     Route::get('/my_order', [OrderController::class, 'customer_index'])->name('customer_orders');
     Route::get('/order_details/{order}', [OrderController::class, 'show_details'])->name('order.details');
+    Route::get('/order/{order}/invoice',[OrderController::class, 'invoice'])->name('order.invoice');
 });
 
 require __DIR__ . '/auth.php';

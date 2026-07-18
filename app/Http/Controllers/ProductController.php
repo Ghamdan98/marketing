@@ -15,7 +15,8 @@ class ProductController extends Controller
     {
         //
         $products = product::with('category')->get();
-        return view('admin.products.index', compact('products'));
+        $categories = category::all();
+        return view('admin.products.index', compact('products','categories'));
     }
 
     public function shop()

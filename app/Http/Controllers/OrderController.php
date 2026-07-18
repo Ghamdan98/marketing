@@ -20,24 +20,6 @@ class OrderController extends Controller
         return view('/orders/my_orders', compact('orders'));
     }
 
-    public function index(Request $request)
-    {
-        $orders = Order::with('user')
-            ->when($request->search, function ($query) use ($request) {
-
-                $query->where('id', 'like', '%' . $request->search . '%')
-                    ->orWhereHas('user', function ($q) use ($request) {
-                        $q->where('name', 'like', '%' . $request->search . '%');
-                    });
-            })
-            ->latest()
-            ->paginate(10);
-
-        $orders->appends($request->query());
-
-        return view('admin.orders.index', compact('orders'));
-    }
-
     public function checkout()
     {
         $card = card::with('card_item.product')->where('user_id', Auth::user()->id)->first();
@@ -107,11 +89,15 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    public function show(Order $order)
+{
+    $order->load([
+        'user',
+        'order_item.product'
+    ]);
 
+    return view('admin.orders.show', compact('order'));
+}
     /**
      * Show the form for editing the specified resource.
      */
@@ -135,4 +121,14 @@ class OrderController extends Controller
     {
         //
     }
+
+    public function invoice(Order $order)
+{
+    $order->load([
+        'user',
+        'order_item.product'
+    ]);
+
+    return view('admin.orders.invoice', compact('order'));
+}
 }
