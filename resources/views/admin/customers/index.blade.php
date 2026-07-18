@@ -4,108 +4,192 @@
 
 @section('content')
 
-<div class="container">
+<div class="page-header">
 
-    <div class="page-header">
-        <h2>Customers</h2>
+    <div class="page-title">
 
-        <form action="{{ route('customer.index') }}" method="GET" class="search-box">
+        <h1>Customers</h1>
 
-            <input
-                type="text"
-                name="search"
-                placeholder="Search customer..."
-                value="{{ request('search') }}">
+        <p>Manage all registered customers.</p>
 
-            <button type="submit">Search</button>
-
-        </form>
     </div>
 
-    <table class="customers-table">
+    {{-- <div class="page-actions">
 
-        <thead>
+        <a href="{{ route('customer_page_index') }}" class="btn-secondary">
 
-            <tr>
+            <i class="fa-solid fa-rotate"></i>
 
-                <th>ID</th>
+            Refresh
 
-                <th>Name</th>
+        </a>
 
-                <th>Email</th>
+    </div>
 
-                <th>Orders</th>
+</div> --}}
 
-                <th>Total Spent</th>
+<div class="table-card">
 
-                <th>Joined</th>
+    <div class="table-header">
 
-                <th>Action</th>
+        <div class="table-title">
 
-            </tr>
+            <h2>Customers List</h2>
 
-        </thead>
+            <p>{{ $customers->total() }} Customers Found</p>
 
-        <tbody>
+        </div>
 
-            @forelse($customers as $customer)
+        <form method="GET">
 
-            <tr>
+            <div class="table-search">
 
-                <td>#{{ $customer->id }}</td>
+                <i class="fa-solid fa-search"></i>
 
-                <td>{{ $customer->name }}</td>
+                <input
+                    type="text"
+                    name="search"
+                    value="{{ request('search') }}"
+                    placeholder="Search by name, email or phone..."
+                >
 
-                <td>{{ $customer->email }}</td>
+            </div>
 
-                <td>{{ $customer->order_count }}</td>
+        </form>
 
-                <td>
-                    ${{ number_format($customer->total_order_price ?? 0,2) }}
-                </td>
+    </div>
 
-                <td>
-         {{ $customer->created_at ? $customer->created_at->format('d M Y') : '' }}
-                    {{-- {{ $customer->created_at ? ->format('d M Y') : ''  }} --}}
-                </td>
+    <div class="table-responsive">
 
-                <td>
+        <table class="data-table">
 
-                    <a
-                        href="
-                        {{ route('customer.show',$customer->id) }}
-                         "
-                        class="btn-view">
+            <thead>
 
-                        View
+                <tr>
 
-                    </a>
+                    <th>Customer</th>
 
-                </td>
+                    <th>Phone</th>
 
-            </tr>
+                    <th>Orders</th>
 
-            @empty
+                    <th>Total Spent</th>
 
-            <tr>
+                    <th>Joined</th>
 
-                <td colspan="7">
+                    <th width="120">Actions</th>
 
-                    No Customers Found
+                </tr>
 
-                </td>
+            </thead>
 
-            </tr>
+            <tbody>
 
-            @endforelse
+                @forelse($customers as $customer)
 
-        </tbody>
+                    <tr>
 
-    </table>
+                        <td>
 
-    <div class="pagination">
+                            <div class="table-user">
 
-        {{-- {{ $customers->links() }} --}}
+                                <div class="table-avatar">
+
+                                    {{ strtoupper(substr($customer->name,0,1)) }}
+
+                                </div>
+
+                                <div class="table-user-info">
+
+                                    <strong>{{ $customer->name }}</strong>
+
+                                    <span>{{ $customer->email }}</span>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td>
+
+                            {{ $customer->phone ?: 'Not Available' }}
+
+                        </td>
+
+                        <td>
+
+                            <span class="badge info">
+
+                                {{ $customer->orders_count }}
+
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            ${{ number_format($customer->orders_sum_total_price ?? 0,2) }}
+
+                        </td>
+
+                        <td>
+
+                            {{ $customer->created_at->format('d M Y') }}
+
+                        </td>
+
+                        <td>
+
+                            <div class="table-actions">
+
+                                <a
+                                    href="{{ route('customer.show',$customer->id) }}"
+                                    class="action-btn view"
+                                    title="View Customer"
+                                >
+
+                                    <i class="fa-solid fa-eye"></i>
+
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                @empty
+
+                    <tr>
+
+                        <td colspan="6">
+
+                            <div class="empty-table">
+
+                                <i class="fa-solid fa-users"></i>
+
+                                <h3>No Customers Found</h3>
+
+                                <p>No registered customers match your search.</p>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                @endforelse
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div class="pagination-wrapper">
+
+        {{ $customers->links() }}
 
     </div>
 

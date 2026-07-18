@@ -84,7 +84,7 @@
 
             <li>
 
-                <a href="{{ route('customer.index') }}"
+                <a href="{{ route('customer_page_index') }}"
                    class="{{ request()->routeIs('customer.*') ? 'active' : '' }}">
 
                     <i class="fa-solid fa-users"></i>

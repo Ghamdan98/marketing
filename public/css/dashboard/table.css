@@ -413,3 +413,32 @@
     }
 
 }
+
+/* ==========================================
+   TABLE USER
+========================================== */
+
+.table-user{
+
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+}
+
+.table-avatar{
+
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    background:var(--primary);
+    color:#fff;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-weight:700;
+    font-size:18px;
+
+}

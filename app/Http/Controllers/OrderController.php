@@ -38,6 +38,8 @@ class OrderController extends Controller
         return view('admin.orders.index', compact('orders'));
     }
 
+    
+
     public function checkout()
     {
         $card = card::with('card_item.product')->where('user_id', Auth::user()->id)->first();
@@ -107,11 +109,15 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    public function show(Order $order)
+{
+    $order->load([
+        'user',
+        'order_item.product'
+    ]);
 
+    return view('admin.orders.show', compact('order'));
+}
     /**
      * Show the form for editing the specified resource.
      */
@@ -135,4 +141,14 @@ class OrderController extends Controller
     {
         //
     }
+
+    public function invoice(Order $order)
+{
+    $order->load([
+        'user',
+        'order_item.product'
+    ]);
+
+    return view('admin.orders.invoice', compact('order'));
+}
 }

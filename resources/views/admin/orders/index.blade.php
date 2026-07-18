@@ -155,26 +155,26 @@
                     <div class="table-actions">
 
                         <a
-                            {{-- href="{{ route('order.show',$order) }}" --}}
+                            href="{{ route('order.show',$order) }}"
                             class="action-btn view"
                         >
                             <i class="fa-solid fa-eye"></i>
                         </a>
 
                         <a
-                            {{-- href="{{ route('order.invoice',$order) }}" --}}
+                            href="{{ route('order.invoice',$order) }}"
                             class="action-btn edit"
                         >
                             <i class="fa-solid fa-file-invoice"></i>
                         </a>
 
-                        <a
-                            {{-- href="{{ route('order.print',$order) }}" --}}
+                        {{-- <a
+                            href="{{ route('order.print',$order) }}"
                             class="action-btn"
                             style="background:#EDE9FE;color:#7C3AED;"
                         >
                             <i class="fa-solid fa-print"></i>
-                        </a>
+                        </a> --}}
 
                     </div>
 
