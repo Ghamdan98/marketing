@@ -1,0 +1,154 @@
+/* ==========================================
+   DASHBOARD
+========================================== */
+
+.dashboard{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:var(--space-xl);
+
+}
+
+/* ==========================================
+   GRID LAYOUT
+========================================== */
+
+.dashboard-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:var(--space-xl);
+
+    margin-bottom:var(--space-xl);
+
+}
+
+/* ==========================================
+   CHART
+========================================== */
+
+.chart-container{
+
+    position:relative;
+
+    width:100%;
+
+    min-height:320px;
+
+}
+
+.chart-container canvas{
+
+    width:100% !important;
+
+    height:320px !important;
+
+}
+
+/* ==========================================
+   CARD BODY
+========================================== */
+
+.dashboard-grid .card-body{
+
+    padding:24px;
+
+}
+
+/* ==========================================
+   TABLE CARD
+========================================== */
+
+.dashboard-grid .table-card{
+
+    margin:0;
+
+}
+
+/* ==========================================
+BOTTOM SECTION
+========================================== */
+
+.dashboard-bottom{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,minmax(0,1fr));
+
+    gap:var(--space-xl);
+
+    margin-top:var(--space-xl);
+
+}
+
+.dashboard-bottom .table-card{
+
+    margin:0;
+
+}
+
+@media(max-width:992px){
+
+    .dashboard-bottom{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:1200px){
+
+    .dashboard-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .dashboard{
+
+        gap:var(--space-lg);
+
+    }
+
+    .dashboard-grid{
+
+        gap:var(--space-lg);
+
+    }
+
+    .chart-container{
+
+        min-height:250px;
+
+    }
+
+    .chart-container canvas{
+
+        height:250px !important;
+
+    }
+
+}
+
+@media(max-width:576px){
+
+    .dashboard-grid{
+
+        margin-bottom:var(--space-lg);
+
+    }
+
+}

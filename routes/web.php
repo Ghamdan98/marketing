@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\Controller;
@@ -50,7 +51,8 @@ Route::middleware('admin')->group(function () {
         return view('admin.categories.create');
     })->name('create_category');
     Route::resource('category', CategoryController::class);
-    Route::get('/dashboard', [Controller::class, 'dashbaord'])->name('dashboard');
+    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+    // Route::get('/dashboard', [Controller::class, 'dashbaord'])->name('dashboard');
 });
 // middleware auth
 Route::middleware('auth')->group(function () {

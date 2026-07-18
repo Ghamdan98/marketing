@@ -184,7 +184,7 @@
 
     <div class="invoice-footer">
 
-        <p>Thank you for shopping with us ❤️</p>
+        <p>Thank you for shopping with us </p>
 
     </div>
 

@@ -121,7 +121,7 @@
 
                             <span class="badge info">
 
-                                {{ $customer->orders_count }}
+                                {{ $customer->order_count }}
 
                             </span>
 
@@ -129,13 +129,13 @@
 
                         <td>
 
-                            ${{ number_format($customer->orders_sum_total_price ?? 0,2) }}
+                            ${{ number_format($customer->order_sum_total_price ?? 0,2) }}
 
                         </td>
 
                         <td>
 
-                            {{ $customer->created_at->format('d M Y') }}
+                            {{ $customer->created_at?$customer->created_at->format('d M Y') :'' }}
 
                         </td>
 

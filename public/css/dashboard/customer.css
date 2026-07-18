@@ -1,0 +1,55 @@
+/* ==========================================
+   CUSTOMER PAGE LAYOUT
+========================================== */
+
+.customer-show{
+
+    display:grid;
+
+    grid-template-columns:320px 1fr;
+
+    gap:var(--space-xl);
+
+    align-items:start;
+
+    margin-bottom:var(--space-xl);
+
+}
+
+/* ==========================================
+   CUSTOMER PAGE
+========================================== */
+
+.customer-page{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:var(--space-xl);
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:992px){
+
+    .customer-show{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .customer-show{
+
+        gap:var(--space-lg);
+
+    }
+
+}

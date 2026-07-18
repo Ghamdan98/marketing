@@ -1,0 +1,77 @@
+/* ==========================================
+   INFO CARD
+========================================== */
+
+.info-card{
+
+    transition:var(--transition);
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-lg);
+
+    box-shadow:var(--shadow-sm);
+
+    overflow:hidden;
+
+}
+
+.stat-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:var(--shadow-md);
+
+}
+
+.info-card .card-body{
+
+    padding:0;
+
+}
+
+.info-card table{
+
+    width:100%;
+
+    margin: 0;
+
+    border-collapse:collapse;
+
+}
+
+.info-card th{
+
+    width:220px;
+
+    padding:18px 24px;
+
+    text-align:left;
+
+    background:#F8FAFC;
+
+    font-weight:600;
+
+    border-bottom:1px solid var(--border);
+
+}
+
+.info-card td{
+
+    padding:18px 24px;
+
+    border-bottom:1px solid var(--border);
+
+    color:var(--text-light);
+
+}
+
+.info-card tr:last-child td,
+
+.info-card tr:last-child th{
+
+    border-bottom:none;
+
+}

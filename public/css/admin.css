@@ -2,9 +2,14 @@
 @import url("dashboard/topbar.css");
 @import url("dashboard/sidebar.css");
 @import url("dashboard/ui.css");
+@import url("dashboard/components/cards.css");
+@import url("dashboard/components/profile.css");
+@import url("dashboard/components/stats.css");
 @import url("dashboard/admin-form.css");
 @import url("dashboard/product.css");
+@import url("dashboard/customer.css");
 @import url("dashboard/dashboard.css");
+@import url("pages/dashoard_home.css");
 @import url("dashboard/product-list.css");
 @import url("dashboard/table.css");
 /* @import url("dashboard/stat-cards.css");

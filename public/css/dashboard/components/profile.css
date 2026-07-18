@@ -1,0 +1,81 @@
+/* ==========================================
+   PROFILE CARD
+========================================== */
+
+.profile-card{
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-lg);
+
+    box-shadow:var(--shadow-sm);
+
+    padding:40px 30px;
+
+    text-align:center;
+
+}
+
+.profile-card hr{
+
+    margin:25px 0;
+
+    border:none;
+
+    border-top:1px solid var(--border);
+
+}
+
+.profile-avatar{
+
+    width:120px;
+
+    height:120px;
+
+    margin:0 auto 24px;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    color:#fff;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:42px;
+
+    font-weight:700;
+
+}
+
+.profile-card h2{
+
+    margin-bottom:8px;
+
+    color:var(--text);
+
+    margin-top:25px;
+
+}
+
+.profile-card p{
+
+    color:var(--text-light);
+
+}
+
+.profile-subtitle{
+
+    margin-top:8px;
+
+    color:var(--text-light);
+
+    font-size:14px;
+
+}
