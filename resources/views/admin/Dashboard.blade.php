@@ -5,14 +5,14 @@
 @section('content')
 
     <!-- ==========================================
-            PAGE HEADER
-            ========================================== -->
+                                PAGE HEADER
+                                ========================================== -->
 
     <div class="page-header">
 
         <div class="page-title">
 
-            <h1>Dashboard</h1>
+            <h3>Dashboard</h3>
 
             <p>Welcome back! Here's what's happening in your store today.</p>
 
@@ -21,8 +21,8 @@
     </div>
 
     <!-- ==========================================
-            STATISTICS
-            ========================================== -->
+                                STATISTICS
+                                ========================================== -->
 
     <div class="stats-grid">
 
@@ -101,8 +101,8 @@
     </div>
 
     <!-- ==========================================
-            SECOND ROW
-            ========================================== -->
+                                SECOND ROW
+                                ========================================== -->
 
     <div class="stats-grid">
 
@@ -185,13 +185,13 @@
     </div>
 
     <!-- ==========================================
-            CONTENT GRID
-            ========================================== -->
+                                CONTENT GRID
+                                ========================================== -->
 
     <div class="dashboard-grid">
         <!-- ==========================================
-            SALES OVERVIEW
-            ========================================== -->
+                                SALES OVERVIEW
+                                ========================================== -->
 
         <div class="info-card">
 
@@ -219,9 +219,31 @@
 
         </div>
 
+        <div class="table-card">
+
+            <div class="table-header">
+
+                <div class="table-title">
+
+                    <h2>Orders Status</h2>
+
+                    <p>Current order distribution</p>
+
+                </div>
+
+            </div>
+
+            <div class="chart-container small-chart">
+
+                <canvas id="statusChart"></canvas>
+
+            </div>
+
+        </div>
         <!-- ==========================================
-            RECENT ORDERS
-            ========================================== -->
+                                RECENT ORDERS
+                                ========================================== -->
+
 
         <div class="table-card">
 
@@ -368,178 +390,178 @@
         </div>
 
         <!-- ==========================================
-            BOTTOM GRID
-            ========================================== -->
+                                BOTTOM GRID
+                                ========================================== -->
 
-        <div class="dashboard-grid">
+        {{-- <div class="dashboard-grid"> --}}
             <!-- ==========================================
-            LATEST CUSTOMERS
-            ========================================== -->
+                                LATEST CUSTOMERS
+                                ========================================== -->
             {{-- <div class="dashboard-bottom"> --}}
-                <div class="table-card">
+            <div class="table-card">
 
-                    <div class="table-header">
+                <div class="table-header">
 
-                        <div class="table-title">
+                    <div class="table-title">
 
-                            <h2>Latest Customers</h2>
+                        <h2>Latest Customers</h2>
 
-                            <p>Recently registered customers</p>
-
-                        </div>
-
-                        <a href="{{ route('customer_page_index') }}" class="btn-secondary">
-
-                            View All
-
-                        </a>
+                        <p>Recently registered customers</p>
 
                     </div>
 
-                    <div class="table-responsive">
+                    <a href="{{ route('customer_page_index') }}" class="btn-secondary">
 
-                        <table class="data-table">
+                        View All
 
-                            <thead>
-
-                                <tr>
-
-                                    <th>Customer</th>
-
-                                    <th>Email</th>
-
-                                    <th>Joined</th>
-
-                                    <th width="110">Action</th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody>
-
-                                @forelse($latestCustomers as $customer)
-                                    <tr>
-
-                                        <td>
-
-                                            <div class="table-user">
-
-                                                <div class="table-avatar">
-
-                                                    {{ strtoupper(substr($customer->name, 0, 1)) }}
-
-                                                </div>
-
-                                                <strong>
-
-                                                    {{ $customer->name }}
-
-                                                </strong>
-
-                                            </div>
-
-                                        </td>
-
-                                        <td>
-
-                                            {{ $customer->email }}
-
-                                        </td>
-
-                                        <td>
-
-                                            {{ $customer->created_at->format('d M Y') }}
-
-                                        </td>
-
-                                        <td>
-
-                                            <div class="table-actions">
-
-                                                <a href="{{ route('customer.show', $customer) }}" class="action-btn view">
-
-                                                    <i class="fa-solid fa-eye"></i>
-
-                                                </a>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                @empty
-
-                                    <tr>
-
-                                        <td colspan="4">
-
-                                            <div class="empty-table">
-
-                                                <i class="fa-solid fa-users"></i>
-
-                                                <h3>No Customers</h3>
-
-                                                <p>No registered customers found.</p>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-                                @endforelse
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
+                    </a>
 
                 </div>
 
-                <!-- ==========================================
-            TOP PRODUCTS
-            ========================================== -->
+                <div class="table-responsive">
 
-                <div class="table-card">
+                    <table class="data-table">
 
-                    <div class="table-header">
+                        <thead>
 
-                        <div class="table-title">
+                            <tr>
 
-                            <h2>Top Products</h2>
+                                <th>Customer</th>
 
-                            <p>Best selling products</p>
+                                <th>Email</th>
 
-                        </div>
+                                <th>Joined</th>
 
-                        <a href="{{ route('products.index') }}" class="btn-secondary">
+                                <th width="110">Action</th>
 
-                            View All
+                            </tr>
 
-                        </a>
+                        </thead>
 
-                    </div>
+                        <tbody>
 
-                    <div class="table-responsive">
-
-                        <table class="data-table">
-
-                            <thead>
-
+                            @forelse($latestCustomers as $customer)
                                 <tr>
 
-                                    <th>Product</th>
+                                    <td>
 
-                                    <th>Sales</th>
+                                        <div class="table-user">
 
-                                    <th width="110">Action</th>
+                                            <div class="table-avatar">
+
+                                                {{ strtoupper(substr($customer->name, 0, 1)) }}
+
+                                            </div>
+
+                                            <strong>
+
+                                                {{ $customer->name }}
+
+                                            </strong>
+
+                                        </div>
+
+                                    </td>
+
+                                    <td>
+
+                                        {{ $customer->email }}
+
+                                    </td>
+
+                                    <td>
+
+                                        {{ $customer->created_at->format('d M Y') }}
+
+                                    </td>
+
+                                    <td>
+
+                                        <div class="table-actions">
+
+                                            <a href="{{ route('customer.show', $customer) }}" class="action-btn view">
+
+                                                <i class="fa-solid fa-eye"></i>
+
+                                            </a>
+
+                                        </div>
+
+                                    </td>
 
                                 </tr>
 
-                            </thead>
-{{-- 
+                            @empty
+
+                                <tr>
+
+                                    <td colspan="4">
+
+                                        <div class="empty-table">
+
+                                            <i class="fa-solid fa-users"></i>
+
+                                            <h3>No Customers</h3>
+
+                                            <p>No registered customers found.</p>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+                            @endforelse
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            <!-- ==========================================
+                                TOP PRODUCTS
+                                ========================================== -->
+
+            <div class="table-card">
+
+                <div class="table-header">
+
+                    <div class="table-title">
+
+                        <h2>Top Products</h2>
+
+                        <p>Best selling products</p>
+
+                    </div>
+
+                    <a href="{{ route('products.index') }}" class="btn-secondary">
+
+                        View All
+
+                    </a>
+
+                </div>
+
+                <div class="table-responsive">
+
+                    <table class="data-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Product</th>
+
+                                <th>Sales</th>
+
+                                <th width="110">Action</th>
+
+                            </tr>
+
+                        </thead>
+                        {{-- 
                             <tbody>
 
                                 @forelse($topProducts as $product)
@@ -600,12 +622,23 @@
 
                             </tbody> --}}
 
-                        </table>
-
-                    </div>
+                    </table>
 
                 </div>
+
             </div>
+        </div>
         {{-- </div> --}}
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+            window.chartLabels = @json($chartLabels);
+
+            window.chartData = @json($chartData);
+        </script>
+        <script>
+            window.statusChart = @json($statusChart);
+        </script>
+        <script src="{{ asset('js/dashboard-chart.js') }}"></script>
 
     @endsection

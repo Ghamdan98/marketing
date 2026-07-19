@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
@@ -45,6 +46,17 @@ Route::get('/customer', [Controller::class, 'customer_desplay'])->name('customer
 Route::get('/customer', [Controller::class,'customer_page_index'])->name('customer_page_index');
 Route::get('/customer/{id}', [Controller::class, 'show_customer'])
     ->name('customer.show');
+/* Route Reports*/
+Route::controller(ReportController::class)->group(function () {
+    Route::get('/reports', 'index')->name('reports.index');
+
+});
+// Route::get('/reports',ReportController::class);
+Route::get('/reports/export/excel', [ReportController::class, 'exportExcel'])
+    ->name('reports.export.excel');
+Route::get('/settings',function(){
+    return view('admin.settings.index');
+})->name('settings.index');
 // middleware admin
 Route::middleware('admin')->group(function () {
     Route::get('/category/create_dash', function () {

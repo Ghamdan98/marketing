@@ -97,7 +97,7 @@
 
             <li>
 
-                <a href="#">
+                <a href="{{ route('reports.index') }}">
 
                     <i class="fa-solid fa-chart-line"></i>
 
@@ -109,7 +109,7 @@
 
             <li>
 
-                <a href="#">
+                <a href="{{route('settings.index')}}">
 
                     <i class="fa-solid fa-gear"></i>
 

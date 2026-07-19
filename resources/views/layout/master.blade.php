@@ -19,17 +19,5 @@
         @yield('content')
     </div>
     @include('layout/footer')
-    <script>
-        const menuToggle = document.getElementById('menu-toggle');
-
-        const navMenu = document.getElementById('nav-menu');
-
-        menuToggle.addEventListener('click', () => {
-
-            navMenu.classList.toggle('active');
-
-        });
-    </script>
-</body>
 
 </html>

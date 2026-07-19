@@ -14,7 +14,7 @@
 
     </div>
 
-    {{-- <div class="page-actions">
+    <div class="page-actions">
 
         <a href="{{ route('customer_page_index') }}" class="btn-secondary">
 
@@ -26,7 +26,7 @@
 
     </div>
 
-</div> --}}
+</div>
 
 <div class="table-card">
 

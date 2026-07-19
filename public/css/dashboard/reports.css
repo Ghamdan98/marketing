@@ -1,0 +1,209 @@
+/* =====================================================
+   REPORT FILTERS
+===================================================== */
+
+.report-filter-form{
+    margin-top:24px;
+    padding:10px ;
+}
+
+.report-filters{
+    display:grid;
+    grid-template-columns:
+        repeat(3,minmax(180px,1fr))
+        auto;
+    gap:20px;
+    align-items:end;
+}
+
+.report-action{
+    display:flex;
+    justify-content:flex-end;
+    width:220px;
+}
+
+.report-action .btn-primary{
+    width:100%;
+}
+
+
+/* =====================================================
+   REPORT CHART
+===================================================== */
+
+.report-chart{
+    margin-top:30px;
+}
+
+.report-chart .chart-container{
+    height:420px;
+}
+
+
+/* =====================================================
+   REPORT TABLES
+===================================================== */
+
+.report-section{
+    margin-top:30px;
+}
+
+/* ==========================================
+   REPORT BOTTOM
+========================================== */
+
+/* ==========================================
+   REPORT TABLES
+========================================== */
+
+.report-bottom{
+
+    margin-top:30px;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,minmax(0,1fr));
+
+    gap:25px;
+
+}
+
+/* ==========================================
+   REPORT ACTIONS
+========================================== */
+/* ==========================================
+   REPORT ACTION BUTTONS
+========================================== */
+
+.report-actions{
+
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+
+}
+
+.report-actions a,
+.report-actions button{
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+
+    width:220px;
+    height:52px;
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+    font-size:15px;
+
+    transition:.3s;
+
+}
+
+.btn-success{
+
+    background:#16a34a;
+    color:#fff;
+
+}
+
+.btn-success:hover{
+
+    background:#15803d;
+    transform:translateY(-2px);
+
+}
+
+.btn-danger{
+
+    background:#4db0c2;
+    color:#fff;
+
+}
+
+.btn-danger:hover{
+
+    background:#3f686f;
+    transform:translateY(-2px);
+
+}
+
+
+
+@media(max-width:768px){
+
+    .report-actions{
+
+        width:100%;
+        flex-direction:column;
+
+    }
+
+    .report-actions a,
+    .report-actions button{
+
+        width:100%;
+
+    }
+
+}
+
+@media(max-width:1100px){
+
+    .report-bottom{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width:1200px){
+
+    .report-filters{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+}
+
+
+@media (max-width:768px){
+
+    .report-filters{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .report-action{
+
+        justify-content:stretch;
+
+    }
+
+    .report-action .btn-primary{
+
+        width:100%;
+
+    }
+
+    .report-chart .chart-container{
+
+        height:320px;
+
+    }
+
+}
