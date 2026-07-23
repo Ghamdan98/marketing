@@ -2,6 +2,7 @@
 @import url("dashboard/topbar.css");
 @import url("dashboard/sidebar.css");
 @import url("dashboard/ui.css");
+@import url("dashboard/notifications.css");
 @import url("dashboard/components/cards.css");
 @import url("dashboard/components/profile.css");
 @import url("dashboard/components/stats.css");

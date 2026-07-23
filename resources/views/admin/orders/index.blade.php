@@ -116,6 +116,12 @@
 
                             @break
 
+                        @case('confirmed')
+
+                            <span class="badge info">Confirmed</span>
+
+                            @break
+
                         @case('processing')
 
                             <span class="badge info">Processing</span>
@@ -124,7 +130,7 @@
 
                         @case('shipped')
 
-                            <span class="badge info">Shipped</span>
+                            <span class="badge success">Shipped</span>
 
                             @break
 

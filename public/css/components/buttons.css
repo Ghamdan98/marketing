@@ -202,3 +202,21 @@
     cursor:not-allowed;
 
 }
+
+.status-box{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.status-box form{
+
+    margin:0;
+
+}

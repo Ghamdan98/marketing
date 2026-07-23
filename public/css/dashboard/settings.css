@@ -182,7 +182,7 @@ textarea.form-control{
 /* =====================================================
    NOTIFICATIONS
 ===================================================== */
-
+/* 
 .notification-list{
 
     display:flex;
@@ -227,7 +227,7 @@ textarea.form-control{
 
     accent-color:var(--primary-color);
 
-}
+} */
 
 /* =====================================================
    INPUTS

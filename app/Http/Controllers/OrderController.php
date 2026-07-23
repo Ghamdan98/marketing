@@ -2,23 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Notifications\NewOrderNotification;
+use App\Events\NewOrderCreated;
 use Illuminate\Support\Facades\Auth;
 use App\Models\card;
 use App\Models\order;
 use App\Models\order_item;
 use Illuminate\Http\Request;
 
+
 class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function customer_index()
-    {
-        //
-        $orders = order::where('user_id',Auth::user()->id)->latest()->get();
-        return view('/orders/my_orders', compact('orders'));
-    }
+
 
     public function index(Request $request)
     {
@@ -38,7 +37,12 @@ class OrderController extends Controller
         return view('admin.orders.index', compact('orders'));
     }
 
-    
+    public function customer_index()
+    {
+        //
+        $orders = order::where('user_id', Auth::user()->id)->latest()->get();
+        return view('/orders/my_orders', compact('orders'));
+    }
 
     public function checkout()
     {
@@ -59,6 +63,16 @@ class OrderController extends Controller
     {
         $orders = order::with('user')->get();
         return view('admin.orders.index', compact('orders'));
+    }
+
+    public function updateStatus(Order $order)
+    {
+        if (!$order->advanceStatus()) {
+
+            return back()->with('error', 'This order cannot be updated anymore.');
+        }
+
+        return back()->with('success', 'Order status updated successfully.');
     }
     /**
      * Show the form for creating a new resource.
@@ -91,6 +105,7 @@ class OrderController extends Controller
             'total_price' => $total,
 
         ]);
+
         foreach ($card->card_item as $c) {
             $total_price = $c->price * $c->quantity;
             order_item::create([
@@ -101,6 +116,16 @@ class OrderController extends Controller
                 'total' => $total_price,
             ]);
         }
+
+        $admins = User::where('role', 'admin')->get();
+
+        foreach ($admins as $admin) {
+
+            $admin->notify(new NewOrderNotification($order));
+        }
+
+        //event(new NewOrderCreated($order));
+
         $card_id = card::findOrfail($card->id);
         $card_id->delete();
         return redirect()->route('customer_orders');
@@ -110,14 +135,14 @@ class OrderController extends Controller
      * Display the specified resource.
      */
     public function show(Order $order)
-{
-    $order->load([
-        'user',
-        'order_item.product'
-    ]);
+    {
+        $order->load([
+            'user',
+            'order_item.product'
+        ]);
 
-    return view('admin.orders.show', compact('order'));
-}
+        return view('admin.orders.show', compact('order'));
+    }
     /**
      * Show the form for editing the specified resource.
      */
@@ -143,12 +168,12 @@ class OrderController extends Controller
     }
 
     public function invoice(Order $order)
-{
-    $order->load([
-        'user',
-        'order_item.product'
-    ]);
+    {
+        $order->load([
+            'user',
+            'order_item.product'
+        ]);
 
-    return view('admin.orders.invoice', compact('order'));
-}
+        return view('admin.orders.invoice', compact('order'));
+    }
 }

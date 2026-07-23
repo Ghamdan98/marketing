@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('address_order');
             $table->text('city');
             // $table->foreignId('address_id')->constrained('user_addresses')->onDelete('cascade');
-            $table->decimal('total_price',10,2);
-            $table->enum('status',['pending','paid','shipped','complated','cancelled'])->default('pending');
-            $table->enum('paymemt_status',['unpaid','paid','failed'])->default('unpaid');
+            $table->decimal('total_price', 10, 2);
+            $table->enum('status', ['pending','confirmed','processing','shipped','delivered','cancelled'])->default('pending');
+            $table->enum('payment_status', ['unpaid', 'paid', 'failed'])->default('unpaid');
             $table->timestamps();
         });
     }

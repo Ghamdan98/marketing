@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +85,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/my_order', [OrderController::class, 'customer_index'])->name('customer_orders');
     Route::get('/order_details/{order}', [OrderController::class, 'show_details'])->name('order.details');
     Route::get('/order/{order}/invoice',[OrderController::class, 'invoice'])->name('order.invoice');
+    Route::patch('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+    // Notifications pages
+    Route::get('/notifications', [NotificationController::class,'index'])->name('notifications.index');
+    Route::get('/notifications/{id}', [NotificationController::class,'read'])->name('notifications.read');
+    Route::post('/notifications/read-all', [NotificationController::class,'readAll'])->name('notifications.readAll');
+    Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
+    Route::delete('/notifications', [NotificationController::class, 'destroyAll'])->name('notifications.destroyAll');
+    
 });
 
 require __DIR__ . '/auth.php';

@@ -108,6 +108,132 @@
 
     </div>
 
+    {{-- <div class="form-card">
+
+        <div class="card-header">
+            <h2>Order Status</h2>
+        </div>
+
+        <div class="card-body">
+
+            <div class="status-box">
+
+                @php
+                    $statusClass = match ($order->status) {
+                        'pending' => 'warning',
+                        'confirmed' => 'primary',
+                        'processing' => 'info',
+                        'shipped' => 'secondary',
+                        'delivered' => 'success',
+                        'cancelled' => 'danger',
+                        default => 'secondary',
+                    };
+                @endphp <span class="badge {{ $statusClass }}">
+                    {{ ucfirst($order->status) }}
+                    </span>
+
+                    @if ($order->nextStatus())
+                        <form action="{{ route('orders.updateStatus', $order) }}" method="POST">
+
+                            @csrf
+                            @method('PATCH')
+
+                            <button class="btn-primary">
+
+                                @switch($order->status)
+                                    @case(\App\Models\order::STATUS_PENDING)
+                                        ✅ Confirm Order
+                                    @break
+
+                                    @case(\App\Models\order::STATUS_CONFIRMED)
+                                        ⚙️ Start Processing
+                                    @break
+
+                                    @case(\App\Models\order::STATUS_PROCESSING)
+                                        🚚 Ship Order
+                                    @break
+
+                                    @case(\App\Models\order::STATUS_SHIPPED)
+                                        📦 Mark as Delivered
+                                    @break
+                                @endswitch
+
+                            </button>
+
+                        </form>
+                    @endif
+
+            </div>
+
+        </div>
+
+    </div> --}}
+
+    <div class="form-card">
+
+        <div class="card-header">
+            <h2>Order Progress</h2>
+        </div>
+
+        <div class="card-body">
+
+            <div class="order-progress">
+
+                @foreach (App\Models\Order::statuses() as $index => $status)
+                    @php
+                        $state = '';
+
+                        if ($index < $order->currentStep()) {
+                            $state = 'completed';
+                        } elseif ($index == $order->currentStep()) {
+                            $state = 'current';
+                        } else {
+                            $state = 'upcoming';
+                        }
+                    @endphp
+
+                    <div class="step {{ $state }}">
+
+                        <div class="circle">
+                            @if ($state == 'completed')
+                                ✓
+                            @elseif($state == 'current')
+                                ●
+                            @else
+                                ○
+                            @endif
+                        </div>
+
+                        <span>{{ ucfirst($status) }}</span>
+
+                    </div>
+                @endforeach
+
+            </div>
+            <div class="order-progress-actions">
+
+                @if ($order->nextStatus())
+                    <h4 class="action-title">Current Action</h4>
+
+                    <form action="{{ route('orders.updateStatus', $order) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+
+                        <button class="btn-primary action-btn">
+                            {{ $order->nextStatusLabel() }}
+                        </button>
+                    </form>
+                @else
+                    <div class="completed-order">
+                        ✔ Order Completed
+                    </div>
+                @endif
+
+            </div>
+        </div>
+
+    </div>
+
     <div class="form-card">
 
         <div class="card-header">

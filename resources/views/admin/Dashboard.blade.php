@@ -629,8 +629,6 @@
             </div>
         </div>
         {{-- </div> --}}
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
         <script>
             window.chartLabels = @json($chartLabels);
 
@@ -639,6 +637,4 @@
         <script>
             window.statusChart = @json($statusChart);
         </script>
-        <script src="{{ asset('js/dashboard-chart.js') }}"></script>
-
     @endsection

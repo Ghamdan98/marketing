@@ -28,6 +28,7 @@
     <!-- Admin CSS -->
 
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    @vite(['resources/js/app.js'])
 
 </head>
 
@@ -60,6 +61,7 @@
     @stack('scripts')
 
     <script>
+        
         const sidebar = document.querySelector('.sidebar');
 
         const overlay = document.querySelector('.sidebar-overlay');
@@ -82,6 +84,11 @@
 
         });
     </script>
+
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script src="{{ asset('js/dashboard-chart.js') }}"></script>
+
 
 </body>
 

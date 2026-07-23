@@ -14,9 +14,7 @@
 
             <i class="fa-solid fa-magnifying-glass"></i>
 
-            <input
-                type="text"
-                placeholder="Search...">
+            <input type="text" placeholder="Search...">
 
         </div>
 
@@ -28,18 +26,100 @@
 
         <!-- Notification -->
 
-        <button class="topbar-icon">
+        <div class="notification-dropdown">
 
-            <i class="fa-regular fa-bell"></i>
+            <button class="topbar-icon" id="notificationToggle">
 
-            <span class="notification-count">
+                <i class="fa-regular fa-bell"></i>
 
-                3
+                @if (auth()->user()->unreadNotifications->count())
+                    <span class="notification-count">
 
-            </span>
+                        {{ auth()->user()->unreadNotifications->count() }}
 
-        </button>
+                    </span>
+                @endif
 
+            </button>
+            <div class="notification-menu" id="notificationMenu">
+
+                <div class="notification-header">
+
+                    <h3>Notifications</h3>
+
+                    <span>
+
+                        {{ auth()->user()->unreadNotifications->count() }}
+
+                        New
+
+                    </span>
+
+                </div>
+
+                <div class="notification-body">
+
+                    @forelse(auth()->user()->unreadNotifications->take(5) as $notification)
+                        <a href="{{ route('notifications.read', $notification->id) }}" class="notification-item">
+                            <div class="notification-item">
+
+                                <div class="notification-icon">
+
+                                    <i class="fa-solid fa-cart-shopping"></i>
+
+                                </div>
+
+                                <div class="notification-content">
+
+                                    <h4>
+
+                                        {{ $notification->data['title'] }}
+
+                                    </h4>
+
+                                    <p>
+
+                                        {{ $notification->data['message'] }}
+
+                                    </p>
+
+                                    <small>
+
+                                        {{ $notification->created_at->diffForHumans() }}
+
+                                    </small>
+
+                                </div>
+                            </div>
+                        </a>
+
+
+                    @empty
+
+                        <div class="notification-empty">
+
+                            <i class="fa-solid fa-bell-slash"></i>
+
+                            <p>No Notifications</p>
+
+                        </div>
+                    @endforelse
+
+                </div>
+
+                <div class="notification-footer">
+
+                    <a href="{{route('notifications.index') }}">
+
+                        View All Notifications
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
         <!-- Admin -->
 
         <div class="admin-profile">
@@ -62,7 +142,7 @@
 
             <div class="admin-avatar">
 
-                {{ strtoupper(substr(Auth::user()->name,0,1)) }}
+                {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
 
             </div>
 

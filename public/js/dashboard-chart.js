@@ -156,3 +156,24 @@ if (statusCanvas) {
     });
 
 }
+
+const notificationToggle = document.getElementById("notificationToggle");
+const notificationDropdown = document.querySelector(".notification-dropdown");
+
+if (notificationToggle) {
+
+    notificationToggle.addEventListener("click", function (e) {
+
+        e.stopPropagation();
+
+        notificationDropdown.classList.toggle("active");
+
+    });
+
+    document.addEventListener("click", function () {
+
+        notificationDropdown.classList.remove("active");
+
+    });
+
+}
